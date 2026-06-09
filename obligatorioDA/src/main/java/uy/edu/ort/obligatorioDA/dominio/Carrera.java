@@ -1,7 +1,9 @@
 package uy.edu.ort.obligatorioDA.dominio;
 
-import uy.edu.ort.obligatorioDA.servicios.Observer.Observable;
 import java.util.List;
+
+import uy.edu.ort.obligatorioDA.servicios.Observer.IObservador;
+import uy.edu.ort.obligatorioDA.servicios.Observer.Observable;
 
 public class Carrera extends Observable {
 
@@ -16,6 +18,8 @@ public class Carrera extends Observable {
 	private Participacion ganador;
 
 	private int horaFinalizacion;
+
+	private List <IObservador> listaObservers;
 
 	public int calcularTotalApostado() {
 		return 0;
@@ -53,12 +57,14 @@ public class Carrera extends Observable {
 		return null;
 	}
 
-	public void cambiarEstado() {
-
+	public void cambiarEstado(EstadoCarrera  nuevoEstado) {
+		this.estado = nuevoEstado;
+		notificarObservadores(nuevoEstado);
 	}
 
 	public Double recalcularDividendos() {
 		return null;
 	}
+
 
 }

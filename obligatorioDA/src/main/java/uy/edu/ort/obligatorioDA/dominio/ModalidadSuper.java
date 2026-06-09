@@ -2,12 +2,18 @@ package uy.edu.ort.obligatorioDA.dominio;
 
 public class ModalidadSuper extends ModalidadApuesta {
 
-	public Double calcularMontoApostado() {
-		return null;
+	@Override
+	public Double calcularMontoApostado( Double monto) {
+		return monto * 2;
 	}
 
-	public Double calcularMontoGanado() {
-		return null;
+	@Override
+	public Double calcularMontoGanado(Double monto, Double dividendoFinal, Double totalApostadoParticipacion) {
+		if (totalApostadoParticipacion >= 2) {
+			return monto * dividendoFinal * 3;
+		} else {
+			return monto * dividendoFinal * 4;
+		}
 	}
 
 }
