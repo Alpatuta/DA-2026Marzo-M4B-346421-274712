@@ -1,4 +1,6 @@
-package uy.edu.ort.obligatorioDA.servicios.Observer;
+package uy.edu.ort.obligatorioDA.Observer;
+import java.util.Observable;
+
 
 public interface IObservador {
 

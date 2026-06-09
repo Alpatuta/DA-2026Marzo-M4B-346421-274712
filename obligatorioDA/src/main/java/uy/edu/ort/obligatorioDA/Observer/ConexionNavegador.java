@@ -1,7 +1,8 @@
-package uy.edu.ort.obligatorioDA.servicios.Observer;
+package uy.edu.ort.obligatorioDA.Observer;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 @Component
 @Scope("session")

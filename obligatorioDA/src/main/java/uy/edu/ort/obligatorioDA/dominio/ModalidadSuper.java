@@ -9,7 +9,7 @@ public class ModalidadSuper extends ModalidadApuesta {
 
 	@Override
 	public Double calcularMontoGanado(Double monto, Double dividendoFinal, Double totalApostadoParticipacion) {
-		if (totalApostadoParticipacion >= 2) {
+		if (dividendoFinal >= 2) {
 			return monto * dividendoFinal * 3;
 		} else {
 			return monto * dividendoFinal * 4;

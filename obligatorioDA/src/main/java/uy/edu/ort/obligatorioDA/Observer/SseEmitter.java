@@ -1,4 +1,4 @@
-package uy.edu.ort.obligatorioDA.servicios.Observer;
+package uy.edu.ort.obligatorioDA.Observer;
 
 public class SseEmitter {
 
