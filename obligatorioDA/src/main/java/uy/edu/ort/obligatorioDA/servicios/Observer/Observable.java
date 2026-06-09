@@ -1,4 +1,4 @@
-package uy.edu.ort.obligatorioDA.Servicios.Observer;
+package uy.edu.ort.obligatorioDA.servicios.Observer;
 
 import java.util.ArrayList;
 import java.util.List;

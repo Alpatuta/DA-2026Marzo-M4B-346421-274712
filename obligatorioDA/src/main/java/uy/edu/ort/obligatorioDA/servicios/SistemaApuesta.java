@@ -1,23 +1,16 @@
-package uy.edu.ort.obligatorioDA.Servicios;
+package uy.edu.ort.obligatorioDA.servicios;
 
 import java.util.List;
 import uy.edu.ort.obligatorioDA.dominio.Apuesta;
 import uy.edu.ort.obligatorioDA.dominio.ModalidadApuesta;
-import java.util.Collection;
-import uy.edu.ort.obligatorioDA.Dominio.Apuesta;
-import uy.edu.ort.obligatorioDA.Dominio.ModalidadApuesta;
-import uy.edu.ort.obligatorioDA.Dominio.Jugador;
-import uy.edu.ort.obligatorioDA.Dominio.Participacion;
+import uy.edu.ort.obligatorioDA.dominio.Jugador;
+import uy.edu.ort.obligatorioDA.dominio.Participacion;
 
 public class SistemaApuesta {
 
 	private List<Apuesta> apuestas;
 
 	private List<ModalidadApuesta> modalidades;
-
-	private Collection<Apuesta> apuesta;
-
-	private Collection<ModalidadApuesta> modalidadApuesta;
 
 	public SistemaApuesta getInstancia() {
 		return null;

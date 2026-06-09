@@ -1,4 +1,4 @@
-package uy.edu.ort.obligatorioDA.Servicios.Observer;
+package uy.edu.ort.obligatorioDA.servicios.Observer;
 
 public interface IObservador {
 

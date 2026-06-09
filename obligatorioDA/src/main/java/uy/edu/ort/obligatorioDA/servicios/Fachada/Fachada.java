@@ -1,16 +1,16 @@
-package uy.edu.ort.obligatorioDA.Servicios.Fachada;
+package uy.edu.ort.obligatorioDA.servicios.Fachada;
 
-import uy.edu.ort.obligatorioDA.Servicios.SistemaUsuario;
-import uy.edu.ort.obligatorioDA.Servicios.SistemaApuesta;
-import uy.edu.ort.obligatorioDA.Servicios.SistemaCarrera;
-import uy.edu.ort.obligatorioDA.Dominio.Administrador;
-import uy.edu.ort.obligatorioDA.Dominio.Jugador;
+import uy.edu.ort.obligatorioDA.servicios.SistemaUsuario;
+import uy.edu.ort.obligatorioDA.servicios.SistemaApuesta;
+import uy.edu.ort.obligatorioDA.servicios.SistemaCarrera;
+import uy.edu.ort.obligatorioDA.dominio.Administrador;
+import uy.edu.ort.obligatorioDA.dominio.Jugador;
 import java.util.Date;
-import uy.edu.ort.obligatorioDA.Dominio.Jornada;
-import uy.edu.ort.obligatorioDA.Dominio.Carrera;
+import uy.edu.ort.obligatorioDA.dominio.Jornada;
+import uy.edu.ort.obligatorioDA.dominio.Carrera;
 import java.util.List;
-import uy.edu.ort.obligatorioDA.Dominio.Apuesta;
-import uy.edu.ort.obligatorioDA.Dominio.Participacion;
+import uy.edu.ort.obligatorioDA.dominio.Apuesta;
+import uy.edu.ort.obligatorioDA.dominio.Participacion;
 
 public class Fachada {
 

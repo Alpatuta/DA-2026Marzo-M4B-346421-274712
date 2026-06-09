@@ -1,5 +1,4 @@
-package uy.edu.ort.obligatorioDA.Presentadores;
+package uy.edu.ort.obligatorioDA.presentadores;
 
-public class SseEmitter {
+// Esta clase no debería existir. Usar uy.edu.ort.obligatorioDA.servicios.Observer.SseEmitter
 
-}

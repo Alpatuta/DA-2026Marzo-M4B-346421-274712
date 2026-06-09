@@ -1,25 +1,18 @@
-package uy.edu.ort.obligatorioDA.Servicios;
+package uy.edu.ort.obligatorioDA.servicios;
 
 import java.util.List;
 import uy.edu.ort.obligatorioDA.dominio.Usuario;
-import java.util.Collection;
-import uy.edu.ort.obligatorioDA.Dominio.Usuario;
-import uy.edu.ort.obligatorioDA.Dominio.Administrador;
-import uy.edu.ort.obligatorioDA.Dominio.Jugador;
+import uy.edu.ort.obligatorioDA.dominio.Administrador;
+import uy.edu.ort.obligatorioDA.dominio.Jugador;
 
 public class SistemaUsuario {
 
 	private List<Usuario> usuarios;
 
-	private Collection<Usuario> usuario;
-
 	public SistemaUsuario getInstancia() {
 		return null;
 	}
 
-	/**
-	 *  
-	 */
 	public Administrador loginAdministrador(String nombre, String contrasenia) {
 		return null;
 	}

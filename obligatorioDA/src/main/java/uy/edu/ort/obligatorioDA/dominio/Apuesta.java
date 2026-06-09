@@ -1,4 +1,4 @@
-package uy.edu.ort.obligatorioDA.Dominio;
+package uy.edu.ort.obligatorioDA.dominio;
 
 public class Apuesta {
 
@@ -17,14 +17,6 @@ public class Apuesta {
 	private ModalidadApuesta modalidad;
 
 	private Double dividendoFinal;
-
-	private ModalidadApuesta modalidadApuesta;
-
-	private Participacion participacion;
-
-	private Jugador jugador;
-
-	private ModalidadApuesta modalidadApuesta;
 
 	public void validarMonto(Double monto) {
 

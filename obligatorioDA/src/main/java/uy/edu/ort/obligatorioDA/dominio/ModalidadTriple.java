@@ -1,9 +1,13 @@
-package uy.edu.ort.obligatorioDA.Dominio;
+package uy.edu.ort.obligatorioDA.dominio;
 
-public class ModalidadTriple extends ModalidadApuesta implements ModalidadApuesta {
+public class ModalidadTriple extends ModalidadApuesta {
 
-	public abstract Double calcularMontoApostado();
+	public Double calcularMontoApostado() {
+		return null;
+	}
 
-	public abstract Double calcularMontoGanado();
+	public Double calcularMontoGanado() {
+		return null;
+	}
 
 }

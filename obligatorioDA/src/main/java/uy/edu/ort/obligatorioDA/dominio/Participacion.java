@@ -1,6 +1,4 @@
-package uy.edu.ort.obligatorioDA.Dominio;
-
-import uy.edu.ort.obligatorioDA.dominio.Caballo;
+package uy.edu.ort.obligatorioDA.dominio;
 
 public class Participacion {
 
@@ -13,8 +11,6 @@ public class Participacion {
 	private Double dividendoActual;
 
 	private Double dividendoFinal;
-
-	private Caballo caballo;
 
 	public int calcularTotalApuestas() {
 		return 0;

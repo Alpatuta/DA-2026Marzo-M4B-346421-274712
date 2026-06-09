@@ -1,4 +1,4 @@
-package uy.edu.ort.obligatorioDA.Dominio;
+package uy.edu.ort.obligatorioDA.dominio;
 
 public abstract class Usuario {
 
@@ -8,9 +8,6 @@ public abstract class Usuario {
 
 	private String nombreCompleto;
 
-	/**
-	 *  
-	 */
 	public void validar() {
 
 	}

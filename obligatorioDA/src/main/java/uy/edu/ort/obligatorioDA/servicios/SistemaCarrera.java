@@ -1,18 +1,12 @@
-package uy.edu.ort.obligatorioDA.Servicios;
+package uy.edu.ort.obligatorioDA.servicios;
 
-import uy.edu.ort.obligatorioDA.Dominio.Hipodromo;
+import uy.edu.ort.obligatorioDA.dominio.Hipodromo;
 import java.util.List;
-import uy.edu.ort.obligatorioDA.Dominio.Carrera;
+import uy.edu.ort.obligatorioDA.dominio.Carrera;
 
 public class SistemaCarrera {
 
 	private Hipodromo hipodromo;
-
-	private List<Carrera> carreras;
-
-	private Hipodromo hipodromo;
-
-	private Carrera carrera;
 
 	public SistemaCarrera getInstancia() {
 		return null;

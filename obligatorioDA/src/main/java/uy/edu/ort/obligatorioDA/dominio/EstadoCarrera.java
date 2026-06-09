@@ -1,10 +1,7 @@
-package uy.edu.ort.obligatorioDA.Dominio;
+package uy.edu.ort.obligatorioDA.dominio;
 
 public abstract class EstadoCarrera {
 
-	/**
-	 *  
-	 */
 	public abstract void abrir(Carrera carrera);
 
 	public abstract void cerrar(Carrera carrera);

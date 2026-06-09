@@ -1,7 +1,6 @@
-package uy.edu.ort.obligatorioDA.Dominio;
+package uy.edu.ort.obligatorioDA.dominio;
 
 import java.util.List;
-import uy.edu.ort.obligatorioDA.dominio.Participacion;
 
 public class Caballo {
 

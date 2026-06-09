@@ -1,7 +1,7 @@
-package uy.edu.ort.obligatorioDA.Presentadores;
+package uy.edu.ort.obligatorioDA.presentadores;
 
-import uy.edu.ort.obligatorioDA.Servicios.Fachada.Fachada;
-import uy.edu.ort.obligatorioDA.Dominio.Usuario;
+import uy.edu.ort.obligatorioDA.servicios.Fachada.Fachada;
+import uy.edu.ort.obligatorioDA.dominio.Usuario;
 
 public class PresentadorLoginAdministrador extends PresentadorLogin {
 

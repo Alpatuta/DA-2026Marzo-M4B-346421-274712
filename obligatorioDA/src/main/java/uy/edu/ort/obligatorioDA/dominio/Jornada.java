@@ -1,8 +1,7 @@
-package uy.edu.ort.obligatorioDA.Dominio;
+package uy.edu.ort.obligatorioDA.dominio;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Collection;
 
 public class Jornada {
 
@@ -11,10 +10,6 @@ public class Jornada {
 	private List<Carrera> carreras;
 
 	private Hipodromo hipodromo;
-
-	private Carrera carrera;
-
-	private Collection<Carrera> carrera;
 
 	public Double totalApostado() {
 		return null;

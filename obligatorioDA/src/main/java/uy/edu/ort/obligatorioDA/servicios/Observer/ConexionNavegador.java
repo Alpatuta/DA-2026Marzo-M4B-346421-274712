@@ -1,4 +1,4 @@
-package uy.edu.ort.obligatorioDA.Servicios.Observer;
+package uy.edu.ort.obligatorioDA.servicios.Observer;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

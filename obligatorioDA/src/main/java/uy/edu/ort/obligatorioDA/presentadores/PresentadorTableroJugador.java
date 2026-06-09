@@ -1,12 +1,10 @@
-package uy.edu.ort.obligatorioDA.Presentadores;
+package uy.edu.ort.obligatorioDA.presentadores;
 
-import uy.edu.ort.obligatorioDA.Servicios.Fachada.Fachada;
-import uy.edu.ort.obligatorioDA.Dominio.Apuesta;
-import uy.edu.ort.obligatorioDA.Dominio.Jornada;
-import uy.edu.ort.obligatorioDA.Dominio.Jugador;
-import uy.edu.ort.obligatorioDA.Servicios.Observer.IObservador;
-import uy.edu.ort.obligatorioDA.Servicios.Observer.ConexionNavegador;
-import uy.edu.ort.obligatorioDA.Servicios.Observer.Observable;
+import uy.edu.ort.obligatorioDA.servicios.Fachada.Fachada;
+import uy.edu.ort.obligatorioDA.servicios.Observer.IObservador;
+import uy.edu.ort.obligatorioDA.servicios.Observer.ConexionNavegador;
+import uy.edu.ort.obligatorioDA.servicios.Observer.Observable;
+import uy.edu.ort.obligatorioDA.servicios.Observer.SseEmitter;
 
 public class PresentadorTableroJugador implements IObservador {
 

@@ -1,6 +1,6 @@
-package uy.edu.ort.obligatorioDA.Dtos;
+package uy.edu.ort.obligatorioDA.dtos;
 
-import uy.edu.ort.obligatorioDA.Dominio.Participacion;
+import uy.edu.ort.obligatorioDA.dominio.Participacion;
 
 public class ParticipacionDto {
 

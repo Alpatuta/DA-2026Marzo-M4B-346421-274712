@@ -1,7 +1,6 @@
-package uy.edu.ort.obligatorioDA.Presentadores;
+package uy.edu.ort.obligatorioDA.presentadores;
 
-import uy.edu.ort.obligatorioDA.Dominio.Apuesta;
-import uy.edu.ort.obligatorioDA.Servicios.Fachada.Fachada;
+import uy.edu.ort.obligatorioDA.servicios.Fachada.Fachada;
 
 public class PresentadorConfirmarApuesta {
 
@@ -13,9 +12,6 @@ public class PresentadorConfirmarApuesta {
 		return null;
 	}
 
-	/**
-	 *  
-	 */
 	public Commands descartar(HttpSesion sesionHttp) {
 		return null;
 	}
