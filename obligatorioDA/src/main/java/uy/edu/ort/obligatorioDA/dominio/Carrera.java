@@ -57,14 +57,17 @@ public class Carrera extends Observable {
 		return null;
 	}
 
-	public void cambiarEstado(EstadoCarrera  nuevoEstado) {
+	public void cambiarEstado(EstadoCarrera nuevoEstado) {
 		this.estado = nuevoEstado;
 		notificarObservadores(nuevoEstado);
+	}
+
+	public void setGanador(Participacion ganador) {
+		this.ganador = ganador;
 	}
 
 	public Double recalcularDividendos() {
 		return null;
 	}
-
 
 }
