@@ -1,23 +1,21 @@
 package uy.edu.ort.obligatorioDA.Servicios.Observer;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Collection;
 
 public class Observable {
 
-	private List<IObservador> listaObservers;
-
-	private Collection<IObservador> iObservador;
+	private List<IObservador> listaObservers = new ArrayList<>();
 
 	protected void notificarObservadores(Object evento) {
 
 	}
 
-	public void agregar(Object suscriptor) {
+	public void agregarObserver(IObservador observer) {
 
 	}
 
-	public void remover(Object suscriptor) {
+	public void removerObserver(IObservador observer) {
 
 	}
 

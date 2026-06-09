@@ -5,7 +5,8 @@ import uy.edu.ort.obligatorioDA.Servicios.Fachada.Fachada;
 import uy.edu.ort.obligatorioDA.Dominio.Administrador;
 import uy.edu.ort.obligatorioDA.Servicios.Observer.IObservador;
 import uy.edu.ort.obligatorioDA.Servicios.Observer.ConexionNavegador;
-import java.util.Observable;
+import uy.edu.ort.obligatorioDA.Servicios.Observer.Observable;
+import uy.edu.ort.obligatorioDA.Servicios.Observer.SseEmitter;
 
 public class PresentadorTableroAdministrador implements IObservador {
 
@@ -35,6 +36,8 @@ public class PresentadorTableroAdministrador implements IObservador {
 		return null;
 	}
 
-	public abstract void actualizar(Observable origen, Object evento);
+	public void actualizar(Observable origen, Object evento) {
+
+	}
 
 }

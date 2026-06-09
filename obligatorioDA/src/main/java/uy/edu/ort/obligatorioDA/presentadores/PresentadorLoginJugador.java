@@ -5,7 +5,7 @@ import uy.edu.ort.obligatorioDA.Dominio.Usuario;
 
 public class PresentadorLoginJugador extends PresentadorLogin {
 
-	protected Usuario obtenerUsuario(String nombre, int contrasenia) {
+	protected Usuario obtenerUsuario(String nombre, String contrasenia) {
 		return null;
 	}
 

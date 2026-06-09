@@ -1,10 +1,7 @@
-package uy.edu.ort.obligatorioDA.Dominio;
+package uy.edu.ort.obligatorioDA.dominio;
 
 import uy.edu.ort.obligatorioDA.Servicios.Observer.Observable;
 import java.util.List;
-import uy.edu.ort.obligatorioDA.dominio.Participacion;
-import uy.edu.ort.obligatorioDA.Servicios.Observer.IObservador;
-import java.util.Collection;
 
 public class Carrera extends Observable {
 
@@ -14,25 +11,11 @@ public class Carrera extends Observable {
 
 	private List<Participacion> participantes;
 
-	EstadoCarrera estado;
+	private EstadoCarrera estado;
 
 	private Participacion ganador;
 
 	private int horaFinalizacion;
-
-	private List<IObservador> listaObservers;
-
-	private EstadoCarrera estadoCarrera;
-
-	private Participacion participacion;
-
-	private Participacion participacion;
-
-	private Collection<EstadoCarrera> estadoCarrera;
-
-	private Collection<Participacion> participacion;
-
-	private Participacion participacion;
 
 	public int calcularTotalApostado() {
 		return 0;
@@ -50,11 +33,6 @@ public class Carrera extends Observable {
 		return 0;
 	}
 
-	/**
-	 * Que haga un ganador.getCaballo
-	 * 
-	 *  
-	 */
 	public Caballo getGanador() {
 		return null;
 	}

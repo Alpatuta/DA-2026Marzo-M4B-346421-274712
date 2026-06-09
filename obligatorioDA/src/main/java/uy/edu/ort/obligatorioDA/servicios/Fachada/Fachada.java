@@ -7,10 +7,9 @@ import uy.edu.ort.obligatorioDA.Dominio.Administrador;
 import uy.edu.ort.obligatorioDA.Dominio.Jugador;
 import java.util.Date;
 import uy.edu.ort.obligatorioDA.Dominio.Jornada;
-import uy.edu.ort.obligatorioDA.dominio.Carerra;
+import uy.edu.ort.obligatorioDA.Dominio.Carrera;
 import java.util.List;
-import uy.edu.ort.obligatorioDA.dominio.Apuesta;
-import uy.edu.ort.obligatorioDA.dominio.Participacion;
+import uy.edu.ort.obligatorioDA.Dominio.Apuesta;
 import uy.edu.ort.obligatorioDA.Dominio.Participacion;
 
 public class Fachada {
@@ -20,12 +19,6 @@ public class Fachada {
 	private SistemaApuesta sa;
 
 	private SistemaCarrera sc;
-
-	private SistemaUsuario sistemaUsuario;
-
-	private SistemaCarrera sistemaCarrera;
-
-	private SistemaApuesta sistemaApuesta;
 
 	public Administrador loginAdministrador(String nombre, String contrasenia) {
 		return null;
@@ -51,7 +44,7 @@ public class Fachada {
 		return null;
 	}
 
-	public Carerra obtenerDetalleCarrera(int idCarrera) {
+	public Carrera obtenerDetalleCarrera(int idCarrera) {
 		return null;
 	}
 

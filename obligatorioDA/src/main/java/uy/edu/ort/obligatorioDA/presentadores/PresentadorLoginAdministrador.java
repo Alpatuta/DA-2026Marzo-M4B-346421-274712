@@ -5,13 +5,16 @@ import uy.edu.ort.obligatorioDA.Dominio.Usuario;
 
 public class PresentadorLoginAdministrador extends PresentadorLogin {
 
-	/**
-	 *  
-	 */
-	protected abstract Usuario obtenerUsuario(String nombre, int contrasenia);
+	protected Usuario obtenerUsuario(String nombre, String contrasenia) {
+		return null;
+	}
 
-	protected abstract void siguienteCU();
+	protected void siguienteCU() {
 
-	protected abstract String loginUrl();
+	}
+
+	protected String loginUrl() {
+		return null;
+	}
 
 }
