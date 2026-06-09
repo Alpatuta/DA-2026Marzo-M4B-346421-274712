@@ -2,8 +2,8 @@ package uy.edu.ort.obligatorioDA.dominio;
 
 import java.util.List;
 
-import uy.edu.ort.obligatorioDA.servicios.Observer.IObservador;
-import uy.edu.ort.obligatorioDA.servicios.Observer.Observable;
+import uy.edu.ort.obligatorioDA.Observer.IObservador;
+import uy.edu.ort.obligatorioDA.Observer.Observable;
 
 public class Carrera extends Observable {
 

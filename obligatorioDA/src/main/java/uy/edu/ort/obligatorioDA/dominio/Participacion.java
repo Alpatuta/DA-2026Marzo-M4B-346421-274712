@@ -1,5 +1,8 @@
 package uy.edu.ort.obligatorioDA.dominio;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Participacion {
 
 	private int nroParticipacion;
@@ -11,6 +14,8 @@ public class Participacion {
 	private Double dividendoActual;
 
 	private Double dividendoFinal;
+	
+	private List <Apuesta> apuestas = new ArrayList<>();
 
 	public int calcularTotalApuestas() {
 		return 0;
