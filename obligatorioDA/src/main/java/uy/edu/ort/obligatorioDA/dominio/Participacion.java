@@ -14,15 +14,26 @@ public class Participacion {
 	private Double dividendoActual;
 
 	private Double dividendoFinal;
-	
-	private List <Apuesta> apuestas = new ArrayList<>();
 
-	public int calcularTotalApuestas() {
-		return 0;
+	private List<Apuesta> apuestas = new ArrayList<>();
+
+	public double calcularTotalApuestas() {
+		double total = 0;
+		for (Apuesta apuesta : apuestas) {
+			total += apuesta.getMontoApostado();
+		}
+		return total;
 	}
 
 	public int cantidadApuestasParticipacion() {
-		return 0;
+		return apuestas.size();
+	}
+
+	// El ganador hace esto
+	public void pagarApuestas() {
+		for (Apuesta a : apuestas) {
+			a.pagar(dividendoFinal, calcularTotalApuestas());
+		}
 	}
 
 }

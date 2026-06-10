@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Jugador extends Usuario {
 
-	private int saldo;
+	private Double saldo;
 
 	public Double totalApostado() {
 		return null;
@@ -28,6 +28,10 @@ public class Jugador extends Usuario {
 
 	public void descontarSaldo(Double monto) {
 
+	}
+
+	public Double getSaldo() {
+		return saldo;
 	}
 
 }

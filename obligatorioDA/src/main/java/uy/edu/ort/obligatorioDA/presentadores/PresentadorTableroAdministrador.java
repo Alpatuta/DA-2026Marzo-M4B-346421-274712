@@ -1,11 +1,11 @@
 package uy.edu.ort.obligatorioDA.presentadores;
 
+import java.util.Observable;
 import uy.edu.ort.obligatorioDA.dominio.Jornada;
 import uy.edu.ort.obligatorioDA.servicios.Fachada.Fachada;
-import uy.edu.ort.obligatorioDA.servicios.Observer.IObservador;
-import uy.edu.ort.obligatorioDA.servicios.Observer.ConexionNavegador;
-import uy.edu.ort.obligatorioDA.servicios.Observer.Observable;
-import uy.edu.ort.obligatorioDA.servicios.Observer.SseEmitter;
+import uy.edu.ort.obligatorioDA.Observer.IObservador;
+import uy.edu.ort.obligatorioDA.Observer.ConexionNavegador;
+import uy.edu.ort.obligatorioDA.Observer.SseEmitter;
 
 public class PresentadorTableroAdministrador implements IObservador {
 
@@ -35,6 +35,7 @@ public class PresentadorTableroAdministrador implements IObservador {
 		return null;
 	}
 
+	@Override
 	public void actualizar(Observable origen, Object evento) {
 
 	}
