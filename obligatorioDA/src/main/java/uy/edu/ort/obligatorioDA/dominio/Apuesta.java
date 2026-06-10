@@ -14,8 +14,6 @@ public class Apuesta {
 
 	private boolean finalizada;
 
-	private ModalidadApuesta modalidad;
-
 	private Double dividendoFinal;
 
 	private ModalidadApuesta modalidadApuesta;
@@ -23,7 +21,7 @@ public class Apuesta {
 	public Apuesta(Double monto, Jugador jugador, ModalidadApuesta modalidad) {
 		validarMonto(monto);
 		this.montoApostado = monto;
-		this.modalidad = modalidad;
+		this.modalidadApuesta = modalidad;
 		this.jugador = jugador;
 		this.finalizada = false;
 	}
@@ -32,10 +30,7 @@ public class Apuesta {
 		if (monto <= 0) {
 			throw new IllegalArgumentException("El monto apostado debe ser mayor a cero.");
 		}
-		if (monto > jugador.getSaldo()) {
-			throw new IllegalArgumentException("El monto apostado no puede ser mayor al saldo del jugador.");
-		}
-		this.montoApostado = monto;
+		
 	}
 
 	public double getMontoApostado() {
