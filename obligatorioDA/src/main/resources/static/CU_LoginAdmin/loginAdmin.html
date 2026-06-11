@@ -3,23 +3,52 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Panel de Administración</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de Administración — MalaPata</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="loginAdmin.css" />
 </head>
 
 <body>
-    <h1>Panel de Administración</h1>
-    <p>Hipódromo MalaPata — Sistema de Gestión</p>
 
-    <label>Nombre de usuario</label>
-    <input type="text" id="nombreUsuario" />
+    <div class="page-wrapper">
 
-    <label>Contraseña</label>
-    <input type="password" id="contrasenia" />
+        <div class="system-label">Panel de Administración</div>
 
-    <button id="btnIngresar">Ingresar al sistema</button>
-    <p id="mensajeError" style="display:none; color:red;"></p>
-    <p>Por seguridad, no se permite el ingreso simultáneo con las mismas credenciales.</p>
+        <div class="login-card">
+
+            <div class="brand">
+                <span class="brand-badge">🔒 Acceso restringido</span>
+                <span class="brand-name">Hipódromo MalaPata</span>
+                <span class="brand-sub">Sistema de gestión interno</span>
+            </div>
+
+            <p id="mensajeError" class="error-msg"></p>
+
+            <div class="form-group">
+                <label class="form-label" for="nombreUsuario">Usuario</label>
+                <input class="form-input" type="text" id="nombreUsuario" placeholder="Nombre de usuario" autocomplete="username" />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="contrasenia">Contraseña</label>
+                <input class="form-input" type="password" id="contrasenia" placeholder="••••••••" autocomplete="current-password" />
+            </div>
+
+            <div class="notice">
+                <span class="notice-icon">⚠️</span>
+                <span>Por seguridad, no se permite el ingreso simultáneo con las mismas credenciales desde distintas sesiones.</span>
+            </div>
+
+            <button class="btn-submit" id="btnIngresar">Acceder al sistema</button>
+
+        </div>
+
+        <p class="page-footer">Hipódromo MalaPata &copy; 2026 — Solo personal autorizado</p>
+
+    </div>
 
     <script type="module">
         import dispatcher from '/CommandDispatcher.js';
@@ -27,8 +56,9 @@
         const view = dispatcher.registerView('loginAdmin', {
             urlInicio: null,
             onException: (msg) => {
-                document.getElementById('mensajeError').textContent = msg;
-                document.getElementById('mensajeError').style.display = 'block';
+                const el = document.getElementById('mensajeError');
+                el.textContent = msg;
+                el.style.display = 'block';
             }
         });
 
@@ -44,6 +74,7 @@
             });
         });
     </script>
+
 </body>
 
 </html>
