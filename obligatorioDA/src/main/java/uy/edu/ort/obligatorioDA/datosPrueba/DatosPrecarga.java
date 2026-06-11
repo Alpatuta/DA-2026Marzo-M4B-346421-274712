@@ -9,12 +9,12 @@ public class DatosPrecarga {
         Fachada f = Fachada.getInstancia();
         try {
             // Admins
-            f.agregarUsuario(new Administrador("a1", "a1", "Usuario Administrador"));
-            f.agregarUsuario(new Administrador("a2", "a2", "Segundo Administrador"));
+            f.agregarUsuario(new Administrador("a1", "Usuario Administrador", "a1"));
+            f.agregarUsuario(new Administrador("a2", "Segundo Administrador", "a2"));
 
             // Jugadores
-            f.agregarUsuario(new Jugador("j1", "j1", "Usuario Jugador", 2000.0));
-            f.agregarUsuario(new Jugador("j2", "j2", "Segundo Jugador", 1500.0));
+            f.agregarUsuario(new Jugador("j1", "Usuario Jugador", "j1", 2000.0));
+            f.agregarUsuario(new Jugador("j2", "Segundo Jugador", "j2", 1500.0));
 
             // Comisión del hipódromo: 10%
             f.setComisionHipodromo(10.0f);

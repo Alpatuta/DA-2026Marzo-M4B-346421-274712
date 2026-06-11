@@ -1,5 +1,6 @@
 package uy.edu.ort.obligatorioDA.servicios;
 
+import java.util.ArrayList;
 import java.util.List;
 import uy.edu.ort.obligatorioDA.dominio.Apuesta;
 import uy.edu.ort.obligatorioDA.dominio.ModalidadApuesta;
@@ -8,9 +9,9 @@ import uy.edu.ort.obligatorioDA.dominio.Participacion;
 
 public class SistemaApuesta {
 
-	private List<Apuesta> apuestas;
+	private List<Apuesta> apuestas = new ArrayList<>();
 
-	private List<ModalidadApuesta> modalidades;
+	private List<ModalidadApuesta> modalidades = new ArrayList<>();
 
 	public SistemaApuesta getInstancia() {
 		return null;

@@ -9,7 +9,7 @@ import uy.edu.ort.obligatorioDA.dominio.Jugador;
 
 public class SistemaUsuario {
 
-	private List<Usuario> usuarios;
+	private List<Usuario> usuarios = new ArrayList<>();
 
 	private List<Usuario> usuariosConectados = new ArrayList<>();
 
