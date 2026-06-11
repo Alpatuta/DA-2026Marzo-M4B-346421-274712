@@ -1,18 +1,31 @@
 package uy.edu.ort.obligatorioDA.presentadores;
 
 import uy.edu.ort.obligatorioDA.servicios.Fachada.Fachada;
+import jakarta.servlet.http.HttpSession;
 import uy.edu.ort.obligatorioDA.dominio.Usuario;
+import uy.edu.ort.obligatorioDA.excepciones.ObligatorioException;
 
 public abstract class PresentadorLogin {
 
-	public Commands login(HttpSesion sesionHttp, String nombre, String contrasenia) {
-		return null;
+	protected Fachada fachada;
+
+	public PresentadorLogin(Fachada fachada) {
+		this.fachada = fachada;
 	}
 
-	protected abstract void siguienteCU();
+	// Template method
+	public Commands login(HttpSession sesionHttp, String nombreUsuario, String contrasenia)
+			throws ObligatorioException {
+		HttpSesion session = new HttpSesion(sesionHttp);
+		Usuario usuario = obtenerUsuario(nombreUsuario, contrasenia);
+		guardarUsuarioEnSesion(session, usuario);
+		return Commands.create(new Command("accesoPermitido", siguienteCU()));
+	}
 
-	protected abstract Usuario obtenerUsuario(String nombre, String contrasenia);
+	protected abstract void guardarUsuarioEnSesion(HttpSesion session, Usuario usuario);
 
-	protected abstract String loginUrl();
+	protected abstract String siguienteCU();
+
+	protected abstract Usuario obtenerUsuario(String nombreUsuario, String contrasenia) throws ObligatorioException;
 
 }

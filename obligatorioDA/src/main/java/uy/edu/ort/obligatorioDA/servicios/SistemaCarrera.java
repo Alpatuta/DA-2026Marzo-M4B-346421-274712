@@ -8,12 +8,18 @@ public class SistemaCarrera {
 
 	private Hipodromo hipodromo;
 
+	private List<Carrera> carreras;
+
 	public SistemaCarrera getInstancia() {
 		return null;
 	}
 
 	public List<Carrera> obtenerCarrerasApostables() {
 		return null;
+	}
+
+	public void setComisionHipodromo(float comision) {
+		hipodromo.setPorcentajeComision(comision);
 	}
 
 }

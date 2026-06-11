@@ -1,20 +1,46 @@
 package uy.edu.ort.obligatorioDA.presentadores;
 
 import uy.edu.ort.obligatorioDA.servicios.Fachada.Fachada;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import uy.edu.ort.obligatorioDA.dominio.Jugador;
+import uy.edu.ort.obligatorioDA.dominio.Usuario;
+import uy.edu.ort.obligatorioDA.dtos.JugadorDto;
+import uy.edu.ort.obligatorioDA.excepciones.ObligatorioException;
+
+import jakarta.servlet.http.HttpSession;
 import uy.edu.ort.obligatorioDA.dominio.Usuario;
 
+@RestController
+@RequestMapping("/loginJugador")
 public class PresentadorLoginJugador extends PresentadorLogin {
 
-	protected Usuario obtenerUsuario(String nombre, String contrasenia) {
-		return null;
-	}
+    public PresentadorLoginJugador(Fachada fachada) {
+        super(fachada);
+    }
 
-	protected void siguienteCU() {
+    @PostMapping("/ingresar")
+    public Commands login(HttpSession httpSession,
+            @RequestParam String nombreUsuario,
+            @RequestParam String contrasenia) throws ObligatorioException {
+        return super.login(httpSession, nombreUsuario, contrasenia);
+    }
 
-	}
+    @Override
+    protected Usuario obtenerUsuario(String nombre, String contrasenia) throws ObligatorioException {
+        return fachada.loginJugador(nombre, contrasenia);
+    }
 
-	protected String loginUrl() {
-		return null;
-	}
+    @Override
+    protected String siguienteCU() {
+        return "tableroJugador.html";
+    }
 
+    @Override
+    protected void guardarUsuarioEnSesion(HttpSesion sesion, Usuario usuario) {
+        sesion.setJugador(new JugadorDto((Jugador) usuario));
+    }
 }

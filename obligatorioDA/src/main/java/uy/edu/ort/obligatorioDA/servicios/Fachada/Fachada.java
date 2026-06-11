@@ -11,8 +11,12 @@ import uy.edu.ort.obligatorioDA.dominio.Carrera;
 import java.util.List;
 import uy.edu.ort.obligatorioDA.dominio.Apuesta;
 import uy.edu.ort.obligatorioDA.dominio.Participacion;
+import uy.edu.ort.obligatorioDA.dominio.Usuario;
+import uy.edu.ort.obligatorioDA.excepciones.ObligatorioException;
 
 public class Fachada {
+
+	private static Fachada instancia = new Fachada();
 
 	private SistemaUsuario su;
 
@@ -20,16 +24,26 @@ public class Fachada {
 
 	private SistemaCarrera sc;
 
-	public Administrador loginAdministrador(String nombre, String contrasenia) {
-		return null;
+	private Fachada() {
+		su = new SistemaUsuario();
+		sa = new SistemaApuesta();
+		sc = new SistemaCarrera();
 	}
 
-	public Jugador loginJugador(String nombre, String contrasenia) {
-		return null;
+	public Administrador loginAdministrador(String nombre, String contrasenia) throws ObligatorioException {
+		return su.loginAdministrador(nombre, contrasenia);
+	}
+
+	public Jugador loginJugador(String nombre, String contrasenia) throws ObligatorioException {
+		return su.loginJugador(nombre, contrasenia);
+	}
+
+	public void desconectarAdmin(Usuario admin) {
+		su.desconectar(admin);
 	}
 
 	public static Fachada getInstancia() {
-		return null;
+		return instancia;
 	}
 
 	public Jornada obtenerJornadaActual(Date fecha) {
@@ -58,6 +72,14 @@ public class Fachada {
 
 	public List<Participacion> obtenerApuestasPorParticipacion(Participacion participacion) {
 		return null;
+	}
+
+	public void agregarUsuario(Usuario usuario) {
+		su.agregarUsuario(usuario);
+	}
+
+	public void setComisionHipodromo(float comision) {
+		sc.setComisionHipodromo(comision);
 	}
 
 }

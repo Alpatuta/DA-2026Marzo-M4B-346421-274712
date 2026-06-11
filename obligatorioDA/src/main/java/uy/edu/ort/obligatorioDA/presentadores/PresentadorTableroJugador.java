@@ -1,6 +1,8 @@
 package uy.edu.ort.obligatorioDA.presentadores;
 
 import java.util.Observable;
+
+import jakarta.servlet.http.HttpSession;
 import uy.edu.ort.obligatorioDA.servicios.Fachada.Fachada;
 import uy.edu.ort.obligatorioDA.Observer.IObservador;
 import uy.edu.ort.obligatorioDA.Observer.ConexionNavegador;
@@ -10,7 +12,7 @@ public class PresentadorTableroJugador implements IObservador {
 
 	private ConexionNavegador conexionNavegador;
 
-	public Commands inicializarVista(HttpSesion sesionHttp) {
+	public Commands inicializarVista(HttpSession sesionHttp) {
 		return null;
 	}
 
@@ -18,7 +20,7 @@ public class PresentadorTableroJugador implements IObservador {
 		return null;
 	}
 
-	public Commands logout(HttpSesion sesionHttp) {
+	public Commands logout(HttpSession sesionHttp) {
 		return null;
 	}
 

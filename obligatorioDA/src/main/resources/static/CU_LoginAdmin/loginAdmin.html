@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Panel de Administración</title>
+    <link rel="stylesheet" href="loginAdmin.css" />
+</head>
+
+<body>
+    <h1>Panel de Administración</h1>
+    <p>Hipódromo MalaPata — Sistema de Gestión</p>
+
+    <label>Nombre de usuario</label>
+    <input type="text" id="nombreUsuario" />
+
+    <label>Contraseña</label>
+    <input type="password" id="contrasenia" />
+
+    <button id="btnIngresar">Ingresar al sistema</button>
+    <p id="mensajeError" style="display:none; color:red;"></p>
+    <p>Por seguridad, no se permite el ingreso simultáneo con las mismas credenciales.</p>
+
+    <script type="module">
+        import dispatcher from '/CommandDispatcher.js';
+
+        const view = dispatcher.registerView('loginAdmin', {
+            urlInicio: null,
+            onException: (msg) => {
+                document.getElementById('mensajeError').textContent = msg;
+                document.getElementById('mensajeError').style.display = 'block';
+            }
+        });
+
+        view.handler('accesoPermitido', (url) => { window.location.href = url; });
+
+        dispatcher.startView(view);
+
+        document.getElementById('btnIngresar').addEventListener('click', () => {
+            document.getElementById('mensajeError').style.display = 'none';
+            dispatcher.submit('/loginAdmin/ingresar', {
+                nombreUsuario: document.getElementById('nombreUsuario').value,
+                contrasenia: document.getElementById('contrasenia').value
+            });
+        });
+    </script>
+</body>
+
+</html>

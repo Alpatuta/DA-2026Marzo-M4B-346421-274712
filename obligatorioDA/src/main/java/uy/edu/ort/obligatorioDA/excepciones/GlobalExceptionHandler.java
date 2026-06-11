@@ -1,7 +1,9 @@
 package uy.edu.ort.obligatorioDA.excepciones;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
@@ -13,10 +15,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    private final int ERROR_STATUS_CODE = 299;
-
     @ExceptionHandler(ObligatorioException.class)
-    public ResponseEntity<String> manejarExcepcion(ObligatorioException ex) {
-        return ResponseEntity.status(ERROR_STATUS_CODE).body(ex.getMessage());
+    public ResponseEntity<String> manejarExcepcion(ObligatorioException e) {
+        return ResponseEntity.status(299).body(e.getMessage());
     }
 }

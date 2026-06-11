@@ -8,4 +8,8 @@ public class Hipodromo {
 
 	private List<Jornada> jornadas;
 
+	public void setPorcentajeComision(float comision) {
+		this.porcentajeComision = comision;
+	}
+
 }

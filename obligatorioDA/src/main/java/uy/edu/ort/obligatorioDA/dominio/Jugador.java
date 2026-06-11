@@ -6,6 +6,11 @@ public class Jugador extends Usuario {
 
 	private Double saldo;
 
+	public Jugador(String nombreUsuario, String nombreCompleto, String contrasenia, Double saldo) {
+		super(nombreUsuario, nombreCompleto, contrasenia);
+		this.saldo = saldo;
+	}
+
 	public Double totalApostado() {
 		return null;
 	}
@@ -28,6 +33,14 @@ public class Jugador extends Usuario {
 
 	public void descontarSaldo(Double monto) {
 
+	}
+
+	public String getNombreUsuario() {
+		return super.getNombreUsuario();
+	}
+
+	public String getNombreCompleto() {
+		return super.getNombreCompleto();
 	}
 
 	public Double getSaldo() {
