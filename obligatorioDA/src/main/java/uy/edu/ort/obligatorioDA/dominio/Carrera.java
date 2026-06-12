@@ -167,6 +167,7 @@ public class Carrera extends Observable {
 		}
 
 		estado.dividendoActualizado(this);
+		notificarObservadores(this); // Notificar a los observadores que el dividendo ha sido actualizado
 
 		return null;
 	}

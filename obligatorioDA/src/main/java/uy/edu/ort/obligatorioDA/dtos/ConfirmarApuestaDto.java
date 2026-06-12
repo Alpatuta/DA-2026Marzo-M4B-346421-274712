@@ -27,7 +27,7 @@ public class ConfirmarApuestaDto {
         this.dividendoValido = participacion.dividendoValido();
         this.montoApostado = monto;
         this.montoADebitar = modalidad.calcularMontoApostado(monto);
-        if (dividendoActual != null) {
+        if (DividendoValido()) {
             this.montoACobrar = modalidad.calcularMontoGanado(monto, dividendoActual,
                     participacion.calcularTotalApuestas());
         }

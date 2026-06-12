@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Confirmar Apuesta — MalaPATA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="confirmarApuesta.css" />
+</head>
+
+<body>
+
+    <div class="confirm-wrapper">
+        <div class="confirm-card">
+
+            <div class="confirm-header">
+                <span class="ch-icon">💰</span>
+                <div>
+                    <h1 class="ch-titulo">Confirmar Apuesta</h1>
+                    <p class="ch-sub">Revisá los detalles antes de confirmar. Esta operación descontará el monto de tu
+                        saldo.</p>
+                </div>
+            </div>
+
+            <p id="mensajeError" class="mensaje-error" style="display:none;"></p>
+
+            <div id="detalle" class="detalle" style="display:none;">
+                <div class="det-row"><span class="det-label">N° de Carrera</span><span class="det-value"
+                        id="dCarrera">—</span></div>
+                <div class="det-row"><span class="det-label">Caballo</span><span class="det-value"
+                        id="dCaballo">—</span></div>
+                <div class="det-row"><span class="det-label">Tipo de Apuesta</span><span class="det-value"><span
+                            class="badge-tipo" id="dTipo">—</span></span></div>
+                <div class="det-row"><span class="det-label">Dividendo Actual</span><span class="det-value"
+                        id="dDividendo">—</span></div>
+                <div class="det-row"><span class="det-label">Monto Apostado</span><span class="det-value"
+                        id="dMonto">—</span></div>
+                <div class="det-row det-row-debit"><span class="det-label">Monto a debitar del saldo</span><span
+                        class="det-value red" id="dDebitar">—</span></div>
+
+                <div class="cobrarias">
+                    <span class="cob-label">🏆 COBRARÍAS SI GANA</span>
+                    <span class="cob-value" id="dCobrar">—</span>
+                    <span class="cob-nota">Cálculo en base al dividendo actual. El monto final puede variar.</span>
+                </div>
+
+                <div class="campo-pass">
+                    <label class="pass-label" for="contrasenia">🔒 Ingresá tu contraseña</label>
+                    <input class="pass-input" type="password" id="contrasenia" placeholder="••••••••" />
+                </div>
+
+                <button class="btn-confirmar" id="btnConfirmar">✅ Confirmar Apuesta</button>
+                <button class="btn-descartar" id="btnDescartar">✕ Descartar Apuesta</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="module">
+        import dispatcher from '/CommandDispatcher.js';
+
+        const $ = id => document.getElementById(id);
+        const fmt = v => v != null ? '$' + Number(v).toLocaleString('es-UY') : '—';
+
+        function renderApuesta(a) {
+            $('mensajeError').style.display = 'none';
+            $('detalle').style.display = 'block';
+            $('dCarrera').textContent = `${a.nroCarrera} — ${a.nombreCarrera}`;
+            $('dCaballo').textContent = `N° ${a.nroCaballo} — ${a.nombreCaballo}`;
+            $('dTipo').textContent = a.tipoApuesta;
+            $('dDividendo').textContent = a.dividendoValido ? '$' + a.dividendoActual.toFixed(2) : 'S/E';
+            $('dMonto').textContent = fmt(a.montoApostado);
+            $('dDebitar').textContent = fmt(a.montoADebitar);
+            $('dCobrar').textContent = a.montoACobrar != null ? fmt(a.montoACobrar) : '—';
+        }
+
+        function mostrarError(msg) {
+            $('mensajeError').textContent = msg;
+            $('mensajeError').style.display = 'block';
+        }
+
+        const view = dispatcher.registerView('confirmarApuesta', {
+            urlInicio: '/confirmarApuesta/vistaConectada',
+            onException: (msg) => mostrarError(msg)
+        });
+
+        view.handler('apuesta', a => renderApuesta(a));
+        view.handler('error', msg => mostrarError(msg));
+        view.handler('accesoPermitido', url => { window.location.href = url; });
+        view.handler('accesoNoPermitido', url => { window.location.href = url; });
+
+        dispatcher.startView(view);
+
+        $('btnConfirmar').addEventListener('click', () => {
+            $('mensajeError').style.display = 'none';
+            dispatcher.submit('/confirmarApuesta/confirmar', { contrasenia: $('contrasenia').value });
+        });
+        $('btnDescartar').addEventListener('click', () => {
+            dispatcher.submit('/confirmarApuesta/descartar', {});
+        });
+    </script>
+
+</body>
+
+</html>
