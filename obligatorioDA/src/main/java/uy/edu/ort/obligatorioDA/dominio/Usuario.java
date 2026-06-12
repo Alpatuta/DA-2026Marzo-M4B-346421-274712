@@ -14,8 +14,8 @@ public abstract class Usuario {
 		this.contrasenia = contrasenia;
 	}
 
-	public void validar() {
-
+	public Boolean contraseniaValida(String contrasenia) {
+		return this.contrasenia.equals(contrasenia);
 	}
 
 	public String getNombreUsuario() {

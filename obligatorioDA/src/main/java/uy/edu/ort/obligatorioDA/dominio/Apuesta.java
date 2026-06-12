@@ -24,6 +24,7 @@ public class Apuesta {
 		this.modalidadApuesta = modalidad;
 		this.jugador = jugador;
 		this.finalizada = false;
+		this.costoDescontar = modalidad.calcularMontoApostado(monto);
 	}
 
 	public void validarMonto(Double monto) {
@@ -33,7 +34,11 @@ public class Apuesta {
 		
 	}
 
-	public double getMontoApostado() {
+	public Double getCostoDescontar() {
+		return costoDescontar;
+	}
+
+	public Double getMontoApostado() {
 		return montoApostado;
 	}
 

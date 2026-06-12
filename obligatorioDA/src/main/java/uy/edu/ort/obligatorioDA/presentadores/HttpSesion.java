@@ -49,4 +49,17 @@ public class HttpSesion {
         httpSession.setAttribute("apuestaEnCurso", dto);
     }
 
+    public ApuestaEnCursoDto getApuestaEnCurso() {
+        return (ApuestaEnCursoDto) httpSession.getAttribute("apuestaEnCurso");
+    }
+
+    public void limpiarApuestaEnCurso() {
+        httpSession.removeAttribute("apuestaEnCurso");
+    }
+
+    public String getNombreJugador() {
+        JugadorDto dto = getJugador();
+        return dto != null ? dto.getNombreUsuario() : null;
+    }
+
 }

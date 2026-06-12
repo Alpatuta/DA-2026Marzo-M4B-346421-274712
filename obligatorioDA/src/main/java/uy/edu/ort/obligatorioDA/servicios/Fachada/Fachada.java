@@ -84,14 +84,27 @@ public class Fachada {
 		return null;
 	}
 
-	public List <Carrera> obtenerCarrerasApostables() {
+	public List<Carrera> obtenerCarrerasApostables() {
 		return sc.obtenerCarrerasApostables();
 	}
 
-	public List <ModalidadApuesta> obtenerModalidadesApuesta() {
+	public List<ModalidadApuesta> obtenerModalidadesApuesta() {
 		return sa.obtenerModalidades();
 	}
 
+	public void confirmarApuesta(String nombreJugador, int idCarrera, int nroParticipacion,
+			String nombreModalidad, double monto, String contrasenia)
+			throws ObligatorioException {
+		Jugador jugador = su.obtenerJugadorPorNombre(nombreJugador);
+		Carrera carrera = sc.obtenerCarreraPorId(idCarrera);
+		Participacion participacion = carrera.obtenerParticipacionPorNro(nroParticipacion);
+		ModalidadApuesta modalidad = sa.obtenerModalidadPorNombre(nombreModalidad);
+		sa.confirmarApuesta(jugador, participacion, modalidad, monto, contrasenia, sc.getComisionHipodromo());
+	}
+
+	public ModalidadApuesta obtenerModalidadPorNombre(String nombre) {
+		return sa.obtenerModalidadPorNombre(nombre);
+	}
 
 	public List<Participacion> obtenerApuestasPorParticipacion(Participacion participacion) {
 		return null;
