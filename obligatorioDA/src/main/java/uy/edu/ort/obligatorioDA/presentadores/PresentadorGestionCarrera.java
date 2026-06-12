@@ -1,9 +1,9 @@
 package uy.edu.ort.obligatorioDA.presentadores;
 
-import java.util.Observable;
 import uy.edu.ort.obligatorioDA.servicios.Fachada.Fachada;
 import uy.edu.ort.obligatorioDA.dominio.Carrera;
 import uy.edu.ort.obligatorioDA.Observer.IObservador;
+import uy.edu.ort.obligatorioDA.Observer.Observable;
 import uy.edu.ort.obligatorioDA.Observer.ConexionNavegador;
 
 public class PresentadorGestionCarrera implements IObservador {

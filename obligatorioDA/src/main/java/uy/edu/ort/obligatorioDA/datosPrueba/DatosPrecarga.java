@@ -1,7 +1,14 @@
 package uy.edu.ort.obligatorioDA.datosPrueba;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import uy.edu.ort.obligatorioDA.dominio.Administrador;
+import uy.edu.ort.obligatorioDA.dominio.Caballo;
+import uy.edu.ort.obligatorioDA.dominio.Carrera;
+import uy.edu.ort.obligatorioDA.dominio.Jornada;
 import uy.edu.ort.obligatorioDA.dominio.Jugador;
+import uy.edu.ort.obligatorioDA.dominio.Participacion;
 import uy.edu.ort.obligatorioDA.servicios.Fachada.Fachada;
 
 public class DatosPrecarga {
@@ -19,7 +26,6 @@ public class DatosPrecarga {
             // Comisión del hipódromo: 10%
             f.setComisionHipodromo(10.0f);
 
-            // ... (carreras, caballos, etc. se agregan acá también)
         } catch (Exception e) {
             System.out.println("Error precarga: " + e.getMessage());
         }

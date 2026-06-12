@@ -55,9 +55,13 @@ public class SistemaUsuario {
 		}
 	}
 
-	public void desconectar(Usuario usuario) {
-		if (estaConectado(usuario) && usuario instanceof Administrador) {
-			usuariosConectados.remove(usuario);
+	public void desconectar(String nombreUsuario) {
+		for (Usuario u : usuariosConectados) {
+			if (u.getNombreUsuario().equals(nombreUsuario) && u instanceof Administrador) {
+				usuariosConectados.remove(u);
+				return;
+			}
+
 		}
 	}
 

@@ -4,6 +4,12 @@ import uy.edu.ort.obligatorioDA.excepciones.ObligatorioException;
 
 public abstract class EstadoCarrera {
 
+	public String nombre;
+
+	public String getNombre() {
+		return nombre;
+	}
+
 	public abstract void abrir(Carrera carrera) throws ObligatorioException;
 
 	public abstract void cerrar(Carrera carrera) throws ObligatorioException;
@@ -12,6 +18,6 @@ public abstract class EstadoCarrera {
 
 	public abstract boolean permiteApuestas();
 
-	public abstract void dividendoActualizado(Carrera carrera) throws ObligatorioException;	
+	public abstract void dividendoActualizado(Carrera carrera) throws ObligatorioException;
 
 }

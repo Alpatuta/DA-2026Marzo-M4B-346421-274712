@@ -1,10 +1,9 @@
 package uy.edu.ort.obligatorioDA.presentadores;
 
-import java.util.Observable;
-
 import jakarta.servlet.http.HttpSession;
 import uy.edu.ort.obligatorioDA.servicios.Fachada.Fachada;
 import uy.edu.ort.obligatorioDA.Observer.IObservador;
+import uy.edu.ort.obligatorioDA.Observer.Observable;
 import uy.edu.ort.obligatorioDA.Observer.ConexionNavegador;
 import uy.edu.ort.obligatorioDA.Observer.SseEmitter;
 
@@ -26,7 +25,8 @@ public class PresentadorTableroJugador implements IObservador {
 
 	@Override
 	public void actualizar(Observable origen, Object evento) {
-
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'actualizar'");
 	}
 
 	public SseEmitter registrarSSE() {

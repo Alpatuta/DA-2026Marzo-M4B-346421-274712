@@ -19,6 +19,7 @@ public class EstadoCerrada extends EstadoCarrera {
         // Cerrada → Finalizada (válido): asigna ganador y cambia estado
         carrera.setGanador(ganador);
         carrera.cambiarEstado(new EstadoFinalizada());
+        ganador.pagarApuestas();
     }
 
     @Override
@@ -26,7 +27,7 @@ public class EstadoCerrada extends EstadoCarrera {
         return false;
     }
 
-    @Override   
+    @Override
     public void dividendoActualizado(Carrera carrera) throws ObligatorioException {
         // No se permite actualizar el dividendo en estado Cerrada
         throw new ObligatorioException("No se puede actualizar el dividendo en estado Cerrada.");

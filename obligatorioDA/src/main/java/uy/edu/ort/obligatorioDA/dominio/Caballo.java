@@ -8,4 +8,11 @@ public class Caballo {
 
 	private List<Participacion> participaciones;
 
+	public Caballo(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
 }

@@ -17,6 +17,18 @@ public class Participacion {
 
 	private List<Apuesta> apuestas = new ArrayList<>();
 
+	public Caballo getCaballo() {
+		return caballo;
+	}
+
+	public Double getDividendoFinal() {
+		return dividendoFinal;
+	}
+
+	public Boolean dividendoValido() {
+		return cantidadApuestasParticipacion() > 0 && dividendoActual != null && dividendoActual > 1;
+	}
+
 	public double calcularTotalApuestas() {
 		double total = 0;
 		for (Apuesta apuesta : apuestas) {
@@ -34,6 +46,26 @@ public class Participacion {
 		for (Apuesta a : apuestas) {
 			a.pagar(dividendoFinal, calcularTotalApuestas());
 		}
+	}
+
+	public Double totalPagado() {
+		double total = 0;
+		for (Apuesta a : apuestas) {
+			total += a.getMontoApostado();
+		}
+		return total;
+	}
+
+	public void recalcularDividendo(Double totalApostadoCarrera, float comision) {
+		double totalCaballo = calcularTotalApuestas();
+
+		if (totalCaballo == 0) {
+			this.dividendoActual = 0.0;
+			return;
+		}
+
+		double pozoARepartir = totalApostadoCarrera - (totalApostadoCarrera * comision / 100);
+		this.dividendoActual = pozoARepartir / totalCaballo;
 	}
 
 }

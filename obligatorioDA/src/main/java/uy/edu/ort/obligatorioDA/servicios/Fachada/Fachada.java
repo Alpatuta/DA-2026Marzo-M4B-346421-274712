@@ -38,8 +38,8 @@ public class Fachada {
 		return su.loginJugador(nombre, contrasenia);
 	}
 
-	public void desconectarAdmin(Usuario admin) {
-		su.desconectar(admin);
+	public void desconectarAdmin(String nombreUsuario) {
+		su.desconectar(nombreUsuario);
 	}
 
 	public static Fachada getInstancia() {
@@ -47,15 +47,15 @@ public class Fachada {
 	}
 
 	public Jornada obtenerJornadaActual(Date fecha) {
-		return null;
+		return sc.obtenerJornadaActual(fecha);
 	}
 
 	public Jornada obtenerJornadaSiguiente(Jornada jornada) {
-		return null;
+		return sc.obtenerJornadaSiguiente(jornada);
 	}
 
 	public Jornada obtenerJornadaAnterior(Jornada jornada) {
-		return null;
+		return sc.obtenerJornadaAnterior(jornada);
 	}
 
 	public Carrera obtenerDetalleCarrera(int idCarrera) {
@@ -76,6 +76,14 @@ public class Fachada {
 
 	public void agregarUsuario(Usuario usuario) {
 		su.agregarUsuario(usuario);
+	}
+
+	public void agregarJornada(Jornada jornada) {
+		sc.agregarJornada(jornada);
+	}
+
+	public float getComisionHipodromo() {
+		return sc.getComisionHipodromo();
 	}
 
 	public void setComisionHipodromo(float comision) {
