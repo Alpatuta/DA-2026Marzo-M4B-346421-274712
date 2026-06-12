@@ -1,8 +1,11 @@
 package uy.edu.ort.obligatorioDA.dominio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Jugador extends Usuario {
+
+	private List <Apuesta> apuestas = new ArrayList<>();
 
 	private Double saldo;
 
@@ -12,19 +15,31 @@ public class Jugador extends Usuario {
 	}
 
 	public Double totalApostado() {
-		return null;
+		double total = 0;
+		for (Apuesta apuesta : apuestas) {
+			total += apuesta.getMontoApostado();
+		}
+		return total;
 	}
 
 	public Double totalGanado() {
-		return null;
+		double total = 0;
+		for (Apuesta apuesta : apuestas) {
+			if (apuesta.getMontoCobrado() != null) {
+				total += apuesta.getMontoCobrado();
+			}
+		}
+		return total;
 	}
 
 	public List<Apuesta> apuestasOrdenadasDesc() {
-		return null;
+		List <Apuesta> ordenadas = new ArrayList<>(apuestas);
+		ordenadas.sort((a, b) -> b.getParticipacion().getCarrera().getFecha().compareTo(a.getParticipacion().getCarrera().getFecha()));
+		return ordenadas;
 	}
 
 	public Boolean tieneSaldoSuficiente(Double monto) {
-		return null;
+		return saldo >= monto;
 	}
 
 	public void acreditarSaldo(Double monto) {
@@ -35,6 +50,11 @@ public class Jugador extends Usuario {
 	public void descontarSaldo(Double monto) {
 		this.saldo -= monto;
 	}
+	
+	public void agregarApuesta(Apuesta apuesta) {
+		apuestas.add(apuesta);
+	}	
+
 	
 
 	public String getNombreUsuario() {

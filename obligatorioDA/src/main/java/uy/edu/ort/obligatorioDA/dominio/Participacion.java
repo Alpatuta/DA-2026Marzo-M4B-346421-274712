@@ -26,11 +26,15 @@ public class Participacion {
 	}
 
 	public void agregarApuesta(Apuesta a) {
+		a.setParticipacion(this); 
 		apuestas.add(a);
 	}
 
 	public Caballo getCaballo() {
 		return caballo;
+	}
+	public Carrera getCarrera() {
+		return carrera;
 	}
 
 	public Double getDividendoFinal() {

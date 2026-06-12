@@ -41,6 +41,32 @@ public class Apuesta {
 		return montoCobrado;
 	}
 
+	public Participacion getParticipacion() {
+		return participacion;
+	}	
+
+	public ModalidadApuesta getModalidadApuesta() {
+		return modalidadApuesta;
+	}
+
+	public Double getDividendoFinal() {
+		return dividendoFinal;
+	}
+
+	public boolean Finalizada() {
+		return finalizada;
+	}
+
+	public Jugador getJugador() {
+		return jugador;
+	}	
+
+	public void setParticipacion(Participacion participacion) {
+		this.participacion = participacion;
+	}
+
+	
+
 	public void pagar(Double dividendo, double totalApostadoParticipacion) {
 		// Cambio el dividendo final para que sepa cuanto tiene que pagarle al jugador
 		this.dividendoFinal = dividendo;

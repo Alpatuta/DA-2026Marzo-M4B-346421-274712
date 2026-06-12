@@ -19,6 +19,8 @@ public class Carrera extends Observable {
 
 	private EstadoCarrera estado;
 
+	private Date fecha;
+
 	private Participacion ganador;
 
 	private String horaFinalizacion;
@@ -112,6 +114,10 @@ public class Carrera extends Observable {
 		return nombreCarrera;
 	}
 
+	public Date getFecha() {
+		return fecha;
+	}
+
 	public List<Participacion> getParticipantes() {
 		return participantes;
 	}
@@ -138,6 +144,10 @@ public class Carrera extends Observable {
 
 	public int getIdCarrera() {
 		return idCarrera;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
 	}
 
 	protected void cambiarEstado(EstadoCarrera nuevoEstado) {

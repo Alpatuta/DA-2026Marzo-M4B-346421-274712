@@ -1,26 +1,26 @@
 package uy.edu.ort.obligatorioDA.presentadores;
 
 import java.util.Date;
-import java.util.List;
 
-import org.springframework.http.MediaType;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import jakarta.servlet.http.HttpSession;
+import uy.edu.ort.obligatorioDA.Observer.ConexionNavegador;
+import uy.edu.ort.obligatorioDA.Observer.IObservador;
+import uy.edu.ort.obligatorioDA.Observer.Observable;
 import uy.edu.ort.obligatorioDA.dominio.Carrera;
 import uy.edu.ort.obligatorioDA.dominio.Jornada;
 import uy.edu.ort.obligatorioDA.dtos.AdminDto;
 import uy.edu.ort.obligatorioDA.dtos.JornadaDto;
 import uy.edu.ort.obligatorioDA.servicios.Fachada.Fachada;
-import uy.edu.ort.obligatorioDA.Observer.IObservador;
-import uy.edu.ort.obligatorioDA.Observer.Observable;
-import uy.edu.ort.obligatorioDA.Observer.ConexionNavegador;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 @RestController
 @RequestMapping("/tableroAdmin")
@@ -91,8 +91,9 @@ public class PresentadorTableroAdministrador implements IObservador {
 		return Commands.create(new Command("jornada", new JornadaDto(jornadaActual, comision)));
 	}
 
-	public Commands gestionarCarrera(int idCarrera) {
-		return null;
+	@PostMapping("/gestionarCarrera")
+	public Commands gestionarCarrera(@RequestParam int idCarrera) {
+    return Commands.create(new Command("accesoPermitido", "gestionCarrera.html?id=" + idCarrera));
 	}
 
 	@PostMapping("/logout")

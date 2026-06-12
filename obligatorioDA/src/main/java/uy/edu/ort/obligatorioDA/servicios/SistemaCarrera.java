@@ -121,7 +121,15 @@ public class SistemaCarrera {
 
 
 	public List<Carrera> obtenerCarrerasApostables() {
-		return null;
+		List<Carrera> carrerasApostables = new ArrayList<>();
+		for (Jornada j : hipodromo.getJornadas()) {
+			for (Carrera c : j.getCarreras()) {
+				if (c.getEstado().permiteApuestas()) {
+					carrerasApostables.add(c);
+				}
+			}
+		}
+		return carrerasApostables;
 	}
 
 	public float getComisionHipodromo() {

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MalaPATA — Mi Tablero</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="tableroJugador.css" />
+</head>
+<body>
+
+    <header class="app-header">
+        <div class="header-brand">
+            <span class="header-logo">🐴</span>
+            <span class="header-title">MalaPATA</span>
+        </div>
+        <div class="header-right">
+            <div class="header-saldo">
+                <span class="saldo-label">SALDO</span>
+                <span class="saldo-value" id="headerSaldo">—</span>
+            </div>
+            <span class="header-nombre" id="headerNombre">—</span>
+            <button class="btn-logout" id="btnLogout">Cerrar sesión</button>
+        </div>
+    </header>
+
+    <main class="main-content">
+
+        <!-- Datos del jugador -->
+        <section class="jugador-panel">
+            <div class="jp-nombre" id="jugadorNombre">—</div>
+            <div class="jp-stats">
+                <div class="jp-stat">
+                    <span class="jp-label">SALDO ACTUAL</span>
+                    <span class="jp-value green" id="jugadorSaldo">—</span>
+                </div>
+                <div class="jp-stat">
+                    <span class="jp-label">TOTAL APOSTADO</span>
+                    <span class="jp-value" id="jugadorApostado">—</span>
+                </div>
+                <div class="jp-stat">
+                    <span class="jp-label">TOTAL GANADO</span>
+                    <span class="jp-value green" id="jugadorGanado">—</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modalidades disponibles -->
+        <section class="modalidades-bar">
+            <span class="mb-titulo">🎯 Tipos de apuesta:</span>
+            <div class="mb-chips" id="modalidadesChips"></div>
+        </section>
+
+        <!-- Carreras apostables -->
+        <h2 class="seccion-titulo">📋 Carreras Disponibles para Apostar</h2>
+        <div id="mensajeSinCarreras" class="empty-msg" style="display:none;">No hay carreras abiertas</div>
+        <div class="carreras-grid" id="carrerasGrid"></div>
+
+        <!-- Mis apuestas -->
+        <h2 class="seccion-titulo">🧾 Mis Apuestas</h2>
+        <div class="tabla-section">
+            <div class="tabla-wrapper">
+                <table class="tabla">
+                    <thead>
+                        <tr>
+                            <th>FECHA</th><th>N° CAR.</th><th>CARRERA</th><th>N° CAB.</th><th>CABALLO</th>
+                            <th>MONTO</th><th>TIPO</th><th>DIV. FINAL</th><th>COBRADO</th><th>ESTADO</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bodyApuestas"></tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <script type="module">
+        import dispatcher from '/CommandDispatcher.js';
+        import { SSECommandDispatcher } from '/SSECommandDispatcher.js';
+
+        const $ = id => document.getElementById(id);
+        const fmt = v => v != null ? '$' + Number(v).toLocaleString('es-UY') : '—';
+
+        let modalidades = [];   // se guarda para llenar los selects de cada carrera
+
+        // ---- Render datos del jugador ----
+        function renderJugador(j) {
+            $('headerNombre').textContent  = j.nombreCompleto;
+            $('headerSaldo').textContent   = fmt(j.saldo);
+            $('jugadorNombre').textContent = j.nombreCompleto;
+            $('jugadorSaldo').textContent  = fmt(j.saldo);
+            $('jugadorApostado').textContent = fmt(j.totalApostado);
+            $('jugadorGanado').textContent = fmt(j.totalGanado);
+        }
+
+        // ---- Render modalidades (chips + guardar para selects) ----
+        function renderModalidades(lista) {
+            modalidades = lista;
+            $('modalidadesChips').innerHTML = lista.map(m =>
+                `<span class="chip">${m.nombre}</span>`).join('');
+        }
+
+        // ---- Render carreras apostables ----
+        function renderCarreras(lista) {
+            $('mensajeSinCarreras').style.display = lista.length ? 'none' : 'block';
+            const opcionesMod = modalidades.map(m => `<option value="${m.nombre}">${m.nombre}</option>`).join('');
+
+            $('carrerasGrid').innerHTML = lista.map(c => `
+                <div class="carrera-card">
+                    <div class="cc-head">
+                        <span class="cc-num">${c.numero}</span>
+                        <div>
+                            <div class="cc-nombre">${c.nombre}</div>
+                            <div class="cc-fecha">${c.fecha}</div>
+                        </div>
+                    </div>
+                    <table class="cc-tabla">
+                        <thead><tr><th>N°</th><th>Caballo</th><th>Dividendo</th></tr></thead>
+                        <tbody>
+                            ${c.participaciones.map(p => `
+                                <tr>
+                                    <td>${p.nroParticipacion}</td>
+                                    <td>${p.nombreCaballo}</td>
+                                    <td class="div-cell">${p.dividendoValido ? '$' + p.dividendoActual.toFixed(2) : 'S/E'}</td>
+                                </tr>`).join('')}
+                        </tbody>
+                    </table>
+                    <div class="cc-form">
+                        <select class="sel-caballo">
+                            ${c.participaciones.map(p =>
+                                `<option value="${p.nroParticipacion}">N° ${p.nroParticipacion} — ${p.nombreCaballo}</option>`).join('')}
+                        </select>
+                        <select class="sel-modalidad">${opcionesMod}</select>
+                        <input type="number" class="inp-monto" placeholder="Monto" min="1" />
+                        <button class="btn-apostar" data-carrera="${c.numero}">Apostar</button>
+                    </div>
+                </div>`).join('');
+        }
+
+        // ---- Render mis apuestas ----
+        function renderApuestas(lista) {
+            $('bodyApuestas').innerHTML = lista.map(a => `
+                <tr>
+                    <td>${a.fecha}</td>
+                    <td class="cell-num">${a.nroCarrera}</td>
+                    <td>${a.nombreCarrera}</td>
+                    <td class="cell-num">${a.nroCaballo}</td>
+                    <td>${a.nombreCaballo}</td>
+                    <td class="cell-money">${fmt(a.montoApostado)}</td>
+                    <td><span class="chip-tipo">${a.tipo}</span></td>
+                    <td>${a.dividendoFinal != null ? '$' + a.dividendoFinal.toFixed(2) : '—'}</td>
+                    <td class="cell-money green">${a.montoCobrado != null ? fmt(a.montoCobrado) : '—'}</td>
+                    <td><span class="badge-estado estado-${a.estado === 'Finalizada' ? 'fin' : 'corr'}">${a.estado}</span></td>
+                </tr>`).join('');
+        }
+
+        // ---- View setup ----
+        const view = dispatcher.registerView('tableroJugador', {
+            urlInicio: '/tableroJugador/vistaConectada',
+            onException: (msg) => alert(msg)
+        });
+
+        view.handler('jugador',           j => renderJugador(j));
+        view.handler('modalidades',       m => renderModalidades(m));
+        view.handler('carreras',          c => renderCarreras(c));
+        view.handler('apuestas',          a => renderApuestas(a));
+        view.handler('accesoNoPermitido', url => { window.location.href = url; });
+        view.handler('accesoPermitido',   url => { window.location.href = url; });
+
+        dispatcher.startView(view);
+        new SSECommandDispatcher('/tableroJugador/registrarSSE', dispatcher);
+
+        // ---- Apostar (event delegation sobre el grid) ----
+        $('carrerasGrid').addEventListener('click', (e) => {
+            if (!e.target.classList.contains('btn-apostar')) return;
+            const card = e.target.closest('.carrera-card');
+            const idCarrera        = e.target.dataset.carrera;
+            const nroParticipacion = card.querySelector('.sel-caballo').value;
+            const nombreModalidad  = card.querySelector('.sel-modalidad').value;
+            const monto            = card.querySelector('.inp-monto').value;
+            dispatcher.submit('/tableroJugador/prepararApuesta',
+                { idCarrera, nroParticipacion, nombreModalidad, monto });
+        });
+
+        $('btnLogout').addEventListener('click', () => dispatcher.submit('/tableroJugador/logout', {}));
+    </script>
+
+</body>
+</html>

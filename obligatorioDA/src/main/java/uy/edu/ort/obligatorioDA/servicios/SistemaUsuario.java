@@ -2,10 +2,11 @@ package uy.edu.ort.obligatorioDA.servicios;
 
 import java.util.ArrayList;
 import java.util.List;
-import uy.edu.ort.obligatorioDA.dominio.Usuario;
-import uy.edu.ort.obligatorioDA.excepciones.ObligatorioException;
+
 import uy.edu.ort.obligatorioDA.dominio.Administrador;
 import uy.edu.ort.obligatorioDA.dominio.Jugador;
+import uy.edu.ort.obligatorioDA.dominio.Usuario;
+import uy.edu.ort.obligatorioDA.excepciones.ObligatorioException;
 
 public class SistemaUsuario {
 
@@ -67,6 +68,15 @@ public class SistemaUsuario {
 
 	public void agregarUsuario(Usuario usuario) {
 		usuarios.add(usuario);
+	}
+
+	public Jugador obtenerJugadorPorNombre (String nombreUsuario) {
+		for (Usuario u : usuarios) {
+			if (u.getNombreUsuario().equals(nombreUsuario) && u instanceof Jugador) {
+				return (Jugador) u;
+			}
+		}
+		return null;
 	}
 
 }

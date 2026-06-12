@@ -2,14 +2,13 @@ package uy.edu.ort.obligatorioDA.servicios;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import uy.edu.ort.obligatorioDA.dominio.Apuesta;
-import uy.edu.ort.obligatorioDA.dominio.ModalidadApuesta;
 import uy.edu.ort.obligatorioDA.dominio.Jugador;
+import uy.edu.ort.obligatorioDA.dominio.ModalidadApuesta;
 import uy.edu.ort.obligatorioDA.dominio.Participacion;
 
 public class SistemaApuesta {
-
-	private List<Apuesta> apuestas = new ArrayList<>();
 
 	private List<ModalidadApuesta> modalidades = new ArrayList<>();
 
@@ -18,9 +17,13 @@ public class SistemaApuesta {
 	}
 
 	public List<ModalidadApuesta> obtenerModalidades() {
-		return null;
+		return modalidades;
 	}
 
+	public void agregarModalidad(ModalidadApuesta modalidad) {
+		modalidades.add(modalidad);	
+	}
+	
 	public void confirmarApuesta(Jugador jugador, Apuesta apuesta, String contrasenia) {
 
 	}

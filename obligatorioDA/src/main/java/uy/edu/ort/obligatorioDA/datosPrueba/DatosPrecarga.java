@@ -66,6 +66,22 @@ public class DatosPrecarga {
             posterior.agregarCarrera(crearCarreraDefinida("Gran Final", 10));
             f.agregarJornada(posterior);
 
+            // 1) Registrar las modalidades en SistemaApuesta (no solo en la lista local)
+            ModalidadApuesta simple = new ModalidadSimple();
+            ModalidadApuesta triple = new ModalidadTriple();
+            ModalidadApuesta sup    = new ModalidadSuper();
+            f.agregarModalidad(simple);
+            f.agregarModalidad(triple);
+            f.agregarModalidad(sup);
+            modalidades.add(simple);
+            modalidades.add(triple);
+            modalidades.add(sup);
+
+
+
+
+
+
             System.out.println("Datos de precarga cargados correctamente.");
         } catch (Exception e) {
             System.out.println("Error en precarga: " + e.getMessage());
@@ -103,7 +119,9 @@ public class DatosPrecarga {
                 Jugador j = jugadores.get(idx % jugadores.size());
                 ModalidadApuesta m = modalidades.get(idx % modalidades.size());
                 double monto = 500 + (k * 100);
-                p.agregarApuesta(new Apuesta(monto, j, m));
+                Apuesta apuesta = new Apuesta(monto, j, m);
+                p.agregarApuesta(apuesta);   // a la participación (setea la referencia inversa)
+                j.agregarApuesta(apuesta);   // al jugador (para totalApostado/totalGanado/apuestas)
                 idx++;
             }
         }

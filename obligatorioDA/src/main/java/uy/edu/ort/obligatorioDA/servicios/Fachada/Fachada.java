@@ -8,6 +8,7 @@ import uy.edu.ort.obligatorioDA.dominio.Apuesta;
 import uy.edu.ort.obligatorioDA.dominio.Carrera;
 import uy.edu.ort.obligatorioDA.dominio.Jornada;
 import uy.edu.ort.obligatorioDA.dominio.Jugador;
+import uy.edu.ort.obligatorioDA.dominio.ModalidadApuesta;
 import uy.edu.ort.obligatorioDA.dominio.Participacion;
 import uy.edu.ort.obligatorioDA.dominio.Usuario;
 import uy.edu.ort.obligatorioDA.excepciones.ObligatorioException;
@@ -76,12 +77,21 @@ public class Fachada {
 	}
 
 	public Jugador obtenerJugadorPorNombre(String nombreUsuario) {
-		return null;
+		return su.obtenerJugadorPorNombre(nombreUsuario);
 	}
 
 	public List<Apuesta> obtenerApuestasPorJugador(Jugador jugador) {
 		return null;
 	}
+
+	public List <Carrera> obtenerCarrerasApostables() {
+		return sc.obtenerCarrerasApostables();
+	}
+
+	public List <ModalidadApuesta> obtenerModalidadesApuesta() {
+		return sa.obtenerModalidades();
+	}
+
 
 	public List<Participacion> obtenerApuestasPorParticipacion(Participacion participacion) {
 		return null;
@@ -93,6 +103,10 @@ public class Fachada {
 
 	public void agregarJornada(Jornada jornada) {
 		sc.agregarJornada(jornada);
+	}
+
+	public void agregarModalidad(ModalidadApuesta modalidad) {
+		sa.agregarModalidad(modalidad);
 	}
 
 	public float getComisionHipodromo() {

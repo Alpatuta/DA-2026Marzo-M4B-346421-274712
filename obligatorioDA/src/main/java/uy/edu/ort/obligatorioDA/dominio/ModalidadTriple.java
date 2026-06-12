@@ -2,6 +2,11 @@ package uy.edu.ort.obligatorioDA.dominio;
 
 public class ModalidadTriple extends ModalidadApuesta {
 
+
+	public ModalidadTriple() {
+		super("Triple");
+	}	
+
 	@Override
 	public Double calcularMontoApostado( Double monto) {
 		return monto * 1.5;

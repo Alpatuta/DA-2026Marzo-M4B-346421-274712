@@ -1,8 +1,9 @@
 package uy.edu.ort.obligatorioDA.presentadores;
 
-import uy.edu.ort.obligatorioDA.dtos.AdminDto;
-import uy.edu.ort.obligatorioDA.dtos.JugadorDto;
 import jakarta.servlet.http.HttpSession;
+import uy.edu.ort.obligatorioDA.dtos.AdminDto;
+import uy.edu.ort.obligatorioDA.dtos.ApuestaEnCursoDto;
+import uy.edu.ort.obligatorioDA.dtos.JugadorDto;
 
 public class HttpSesion {
     private final HttpSession httpSession;
@@ -42,6 +43,10 @@ public class HttpSesion {
 
     public void invalidar() {
         httpSession.invalidate();
+    }
+
+    public void setApuestaEnCurso(ApuestaEnCursoDto dto) {
+        httpSession.setAttribute("apuestaEnCurso", dto);
     }
 
 }
