@@ -17,6 +17,18 @@ public class Participacion {
 
 	private List<Apuesta> apuestas = new ArrayList<>();
 
+	// Participacion.java
+	public Participacion(int nroParticipacion, Carrera carrera, Caballo caballo) {
+		this.nroParticipacion = nroParticipacion;
+		this.carrera = carrera;
+		this.caballo = caballo;
+		this.apuestas = new ArrayList<>();
+	}
+
+	public void agregarApuesta(Apuesta a) {
+		apuestas.add(a);
+	}
+
 	public Caballo getCaballo() {
 		return caballo;
 	}

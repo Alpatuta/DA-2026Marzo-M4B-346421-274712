@@ -10,6 +10,10 @@ public abstract class EstadoCarrera {
 		return nombre;
 	}
 
+	public EstadoCarrera(String nombre) {
+		this.nombre = nombre;
+	}
+
 	public abstract void abrir(Carrera carrera) throws ObligatorioException;
 
 	public abstract void cerrar(Carrera carrera) throws ObligatorioException;

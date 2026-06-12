@@ -118,7 +118,7 @@ public class Carrera extends Observable {
 		return idCarrera;
 	}
 
-	public void cambiarEstado(EstadoCarrera nuevoEstado) {
+	protected void cambiarEstado(EstadoCarrera nuevoEstado) {
 		this.estado = nuevoEstado;
 		notificarObservadores(nuevoEstado);
 	}

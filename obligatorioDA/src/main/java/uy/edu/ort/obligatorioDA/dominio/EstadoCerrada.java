@@ -4,6 +4,10 @@ import uy.edu.ort.obligatorioDA.excepciones.ObligatorioException;
 
 public class EstadoCerrada extends EstadoCarrera {
 
+    public EstadoCerrada() {
+        super("CERRADA");
+    }
+
     @Override
     public void abrir(Carrera carrera) throws ObligatorioException {
         throw new ObligatorioException("No se puede abrir una carrera en estado Cerrada.");

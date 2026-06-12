@@ -4,6 +4,10 @@ import uy.edu.ort.obligatorioDA.excepciones.ObligatorioException;
 
 public class EstadoEstable extends EstadoCarrera {
 
+    public EstadoEstable() {
+        super("ESTABLE");
+    }
+
     @Override
     public void abrir(Carrera carrera) throws ObligatorioException {
         throw new ObligatorioException("La carrera ya se encuentra Abierta/Estable.");
@@ -28,7 +32,7 @@ public class EstadoEstable extends EstadoCarrera {
     @Override
     public void dividendoActualizado(Carrera carrera) throws ObligatorioException {
         // No se permite actualizar el dividendo en estado Estable
-        if(!carrera.todosDividendosValidos()) {
+        if (!carrera.todosDividendosValidos()) {
             // Si algún dividendo es inválido, volver al estado Abierta
             carrera.cambiarEstado(new EstadoAbierta());
         }

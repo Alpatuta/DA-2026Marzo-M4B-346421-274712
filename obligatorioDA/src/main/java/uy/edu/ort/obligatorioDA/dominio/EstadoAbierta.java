@@ -4,9 +4,13 @@ import uy.edu.ort.obligatorioDA.excepciones.ObligatorioException;
 
 public class EstadoAbierta extends EstadoCarrera {
 
+    public EstadoAbierta() {
+        super("ABIERTA");
+    }
+
     @Override
     public void abrir(Carrera carrera) throws ObligatorioException {
-        
+
         throw new ObligatorioException("La carrera ya se encuentra Abierta.");
     }
 
@@ -14,9 +18,8 @@ public class EstadoAbierta extends EstadoCarrera {
     public void cerrar(Carrera carrera) throws ObligatorioException {
         // No se puede cerrar estando Abierta: debe estar Estable primero
         throw new ObligatorioException(
-            "No se puede cerrar la carrera: hay caballos con dividendo inválido. " +
-            "La carrera debe estar en estado Estable para poder cerrarse."
-        );
+                "No se puede cerrar la carrera: hay caballos con dividendo inválido. " +
+                        "La carrera debe estar en estado Estable para poder cerrarse.");
     }
 
     @Override

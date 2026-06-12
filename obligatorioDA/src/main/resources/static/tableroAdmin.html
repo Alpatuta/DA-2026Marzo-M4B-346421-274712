@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tablero de Control — MalaPata</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="tableroAdmin.css" />
+</head>
+
+<body>
+
+    <header class="app-header">
+        <div class="header-brand">
+            <span class="header-logo">🏇</span>
+            <span class="header-title">MalaPata</span>
+            <span class="header-sub">Panel de Administración</span>
+        </div>
+        <div class="header-user">
+            <span class="header-admin-name" id="nombreAdmin">Cargando...</span>
+            <button class="btn-logout" id="btnLogout">Cerrar sesión</button>
+        </div>
+    </header>
+
+    <main class="main-content">
+
+        <div class="jornada-nav">
+            <button class="nav-btn" id="btnRetroceder" title="Jornada anterior">&#8592;</button>
+            <div class="jornada-info">
+                <span class="jornada-label">JORNADA</span>
+                <span class="jornada-fecha" id="jornadaFecha">—</span>
+            </div>
+            <button class="nav-btn" id="btnAvanzar" title="Jornada siguiente">&#8594;</button>
+        </div>
+
+        <p id="mensajeInfo" class="mensaje-info" style="display:none;"></p>
+
+        <div class="stats-bar" id="statsBar" style="display:none;">
+            <div class="stat-card">
+                <span class="stat-label">TOTAL APOSTADO</span>
+                <span class="stat-value green" id="statTotalApostado">—</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">TOTAL PAGADO</span>
+                <span class="stat-value red" id="statTotalPagado">—</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">COMISIONES</span>
+                <span class="stat-value blue" id="statComisiones">—</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">BALANCE</span>
+                <span class="stat-value" id="statBalance">—</span>
+            </div>
+            <div class="stat-card stat-card-sm">
+                <span class="stat-label">CARRERAS</span>
+                <span class="stat-value" id="statCarreras">—</span>
+            </div>
+            <div class="stat-card stat-card-sm">
+                <span class="stat-label">FINALIZADAS</span>
+                <span class="stat-value green" id="statFinalizadas">—</span>
+            </div>
+            <div class="stat-card stat-card-sm">
+                <span class="stat-label">POR CORRER</span>
+                <span class="stat-value yellow" id="statPorCorrer">—</span>
+            </div>
+        </div>
+
+        <section class="tabla-section" id="seccionFinalizadas" style="display:none;">
+            <div class="tabla-header">
+                <span class="tabla-titulo">✅ Carreras Finalizadas</span>
+                <span class="tabla-badge green" id="badgeFinalizadas">0 CARRERAS</span>
+            </div>
+            <div class="tabla-wrapper">
+                <table class="tabla">
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>HORA FIN.</th>
+                            <th>CABALLOS</th>
+                            <th>TOTAL APOSTADO</th>
+                            <th>TOTAL PAGADO</th>
+                            <th>CABALLO GANADOR</th>
+                            <th>DIVIDENDO FINAL</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bodyFinalizadas"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="tabla-section" id="seccionProximas" style="display:none;">
+            <div class="tabla-header">
+                <span class="tabla-titulo">🏁 Próximas Carreras</span>
+                <span class="tabla-badge yellow" id="badgeProximas">0 PENDIENTES</span>
+            </div>
+            <div class="tabla-wrapper">
+                <table class="tabla">
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>ESTADO</th>
+                            <th>CABALLOS</th>
+                            <th>TOTAL APOSTADO</th>
+                            <th>APUESTAS</th>
+                            <th>ACCIÓN</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bodyProximas"></tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <script type="module">
+        import dispatcher from '/CommandDispatcher.js';
+        import { SSECommandDispatcher } from '/SSECommandDispatcher.js';
+
+        const $ = id => document.getElementById(id);
+        const fmt = v => v != null ? '$' + Number(v).toLocaleString('es-UY') : '—';
+
+        function renderJornada(j) {
+            $('jornadaFecha').textContent = j.fecha || '—';
+            $('mensajeInfo').style.display = 'none';
+            $('statsBar').style.display = 'grid';
+
+            $('statTotalApostado').textContent = fmt(j.totalApostado);
+            $('statTotalPagado').textContent = fmt(j.totalPagado);
+            $('statComisiones').textContent = fmt(j.totalComisiones);
+
+            const bal = j.balance ?? 0;
+            const balEl = $('statBalance');
+            balEl.textContent = fmt(bal);
+            balEl.className = 'stat-value ' + (bal >= 0 ? 'green' : 'red');
+
+            $('statCarreras').textContent = j.cantidadCarreras;
+            $('statFinalizadas').textContent = j.cantidadCarrerasFinalizadas;
+            $('statPorCorrer').textContent = j.cantidadCarrerasPorCorrer;
+
+            renderFinalizadas(j.carrerasFinalizadas || []);
+            renderProximas(j.proximasCarreras || []);
+        }
+
+        function renderFinalizadas(lista) {
+            $('seccionFinalizadas').style.display = lista.length ? 'block' : 'none';
+            $('badgeFinalizadas').textContent = lista.length + ' CARRERA' + (lista.length !== 1 ? 'S' : '');
+            $('bodyFinalizadas').innerHTML = lista.map(c => `
+                <tr>
+                    <td class="cell-num">${c.numero}</td>
+                    <td>${c.horaFinalizacion ?? '—'}</td>
+                    <td>${c.cantidadCaballos}</td>
+                    <td class="cell-money green">${fmt(c.totalApostado)}</td>
+                    <td class="cell-money red">${fmt(c.totalPagado)}</td>
+                    <td class="cell-ganador">🏆 ${c.nombreGanador ?? '—'}</td>
+                    <td class="cell-dividendo">$${c.dividendoFinal?.toFixed(2) ?? '—'}</td>
+                </tr>`).join('');
+        }
+
+        function renderProximas(lista) {
+            $('seccionProximas').style.display = lista.length ? 'block' : 'none';
+            $('badgeProximas').textContent = lista.length + ' PENDIENTE' + (lista.length !== 1 ? 'S' : '');
+            $('bodyProximas').innerHTML = lista.map(c => `
+                <tr>
+                    <td class="cell-num">${c.numero}</td>
+                    <td><span class="badge-estado estado-${(c.estado || '').toLowerCase()}">${c.estado ?? '—'}</span></td>
+                    <td>${c.cantidadCaballos}</td>
+                    <td class="cell-money green">${fmt(c.totalApostado)}</td>
+                    <td>${c.cantidadApuestas}</td>
+                    <td><button class="btn-gestionar" onclick="gestionar(${c.idCarrera})">Gestionar</button></td>
+                </tr>`).join('');
+        }
+
+        window.gestionar = function (idCarrera) {
+            dispatcher.submit('/tableroAdmin/gestionarCarrera', { idCarrera });
+        };
+
+        const view = dispatcher.registerView('tableroAdmin', {
+            urlInicio: '/tableroAdmin/vistaConectada',
+            onException: (msg) => {
+                $('mensajeInfo').textContent = msg;
+                $('mensajeInfo').style.display = 'block';
+            }
+        });
+
+        view.handler('nombreAdmin', n => { $('nombreAdmin').textContent = n; });
+        view.handler('jornada', j => renderJornada(j));
+        view.handler('error', msg => {
+            $('mensajeInfo').textContent = msg;
+            $('mensajeInfo').style.display = 'block';
+            $('statsBar').style.display = 'none';
+            $('seccionFinalizadas').style.display = 'none';
+            $('seccionProximas').style.display = 'none';
+        });
+        view.handler('accesoNoPermitido', url => { window.location.href = url; });
+        view.handler('accesoPermitido', url => { window.location.href = url; });
+
+        dispatcher.startView(view);
+
+        new SSECommandDispatcher('/tableroAdmin/registrarSSE', dispatcher);
+
+        $('btnAvanzar').addEventListener('click', () => dispatcher.submit('/tableroAdmin/avanzarJornada', {}));
+        $('btnRetroceder').addEventListener('click', () => dispatcher.submit('/tableroAdmin/retrocederJornada', {}));
+        $('btnLogout').addEventListener('click', () => dispatcher.submit('/tableroAdmin/logout', {}));
+    </script>
+
+</body>
+
+</html>

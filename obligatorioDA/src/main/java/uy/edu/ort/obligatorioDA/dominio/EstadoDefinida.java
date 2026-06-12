@@ -4,6 +4,10 @@ import uy.edu.ort.obligatorioDA.excepciones.ObligatorioException;
 
 public class EstadoDefinida extends EstadoCarrera {
 
+    public EstadoDefinida() {
+        super("DEFINIDA");
+    }
+
     @Override
     public void abrir(Carrera carrera) throws ObligatorioException {
         
