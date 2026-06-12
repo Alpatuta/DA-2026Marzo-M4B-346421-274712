@@ -63,7 +63,9 @@ public class Participacion {
 	public Double totalPagado() {
 		double total = 0;
 		for (Apuesta a : apuestas) {
-			total += a.getMontoApostado();
+			if (a.getMontoCobrado() != null) {
+				total += a.getMontoCobrado();
+			}
 		}
 		return total;
 	}

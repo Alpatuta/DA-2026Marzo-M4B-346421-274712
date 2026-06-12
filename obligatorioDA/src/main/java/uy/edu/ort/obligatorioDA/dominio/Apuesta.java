@@ -37,6 +37,10 @@ public class Apuesta {
 		return montoApostado;
 	}
 
+	public Double getMontoCobrado() {
+		return montoCobrado;
+	}
+
 	public void pagar(Double dividendo, double totalApostadoParticipacion) {
 		// Cambio el dividendo final para que sepa cuanto tiene que pagarle al jugador
 		this.dividendoFinal = dividendo;
