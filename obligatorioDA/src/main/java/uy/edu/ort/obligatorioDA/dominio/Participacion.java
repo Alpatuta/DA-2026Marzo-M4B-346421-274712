@@ -37,6 +37,18 @@ public class Participacion {
 		return dividendoFinal;
 	}
 
+	public int getNroParticipacion() {
+		return nroParticipacion;
+	}
+
+	public Double getDividendoActual() {
+		return dividendoActual;
+	}
+
+	public void fijarDividendoFinal(){
+		this.dividendoFinal = this.dividendoActual;
+	}
+
 	public Boolean dividendoValido() {
 		return cantidadApuestasParticipacion() > 0 && dividendoActual != null && dividendoActual > 1;
 	}

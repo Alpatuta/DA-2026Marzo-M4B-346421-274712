@@ -9,25 +9,6 @@ public class EstadoAbierta extends EstadoCarrera {
     }
 
     @Override
-    public void abrir(Carrera carrera) throws ObligatorioException {
-
-        throw new ObligatorioException("La carrera ya se encuentra Abierta.");
-    }
-
-    @Override
-    public void cerrar(Carrera carrera) throws ObligatorioException {
-        // No se puede cerrar estando Abierta: debe estar Estable primero
-        throw new ObligatorioException(
-                "No se puede cerrar la carrera: hay caballos con dividendo inválido. " +
-                        "La carrera debe estar en estado Estable para poder cerrarse.");
-    }
-
-    @Override
-    public void finalizar(Carrera carrera, Participacion ganador) throws ObligatorioException {
-        throw new ObligatorioException("No se puede finalizar una carrera en estado Abierta.");
-    }
-
-    @Override
     public boolean permiteApuestas() {
         return true;
     }

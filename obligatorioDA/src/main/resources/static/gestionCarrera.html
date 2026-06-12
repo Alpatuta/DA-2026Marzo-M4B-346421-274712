@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión de Carrera — MalaPata</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="gestionCarrera.css" />
+</head>
+<body>
+
+    <header class="app-header">
+        <div class="header-brand">
+            <span class="header-logo">🏇</span>
+            <span class="header-title">MalaPata</span>
+            <span class="header-sub">Gestión de Carrera</span>
+        </div>
+        <button class="btn-volver" id="btnVolver">← Volver al tablero</button>
+    </header>
+
+    <main class="main-content">
+
+        <p id="mensajeError" class="mensaje-error" style="display:none;"></p>
+
+        <section class="carrera-card" id="carreraCard" style="display:none;">
+            <div class="carrera-head">
+                <div class="carrera-id" id="carreraNumero">—</div>
+                <div class="carrera-info">
+                    <h1 class="carrera-nombre" id="carreraNombre">—</h1>
+                    <span class="badge-estado" id="carreraEstado">—</span>
+                </div>
+                <div class="carrera-total">
+                    <span class="total-label">TOTAL APOSTADO</span>
+                    <span class="total-value" id="carreraTotal">—</span>
+                </div>
+            </div>
+
+            <div class="acciones">
+                <button class="btn-accion btn-abrir"  id="btnAbrir">▶ Abrir Carrera</button>
+                <button class="btn-accion btn-cerrar" id="btnCerrar">⏸ Cerrar Carrera</button>
+                <div class="finalizar-group">
+                    <select class="select-ganador" id="selectGanador">
+                        <option value="0">— Elegir caballo ganador —</option>
+                    </select>
+                    <button class="btn-accion btn-finalizar" id="btnFinalizar">🏁 Finalizar y Pagar</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="tabla-section" id="seccionParticipantes" style="display:none;">
+            <div class="tabla-header">
+                <span class="tabla-titulo">🐎 Caballos Participantes</span>
+            </div>
+            <div class="tabla-wrapper">
+                <table class="tabla">
+                    <thead>
+                        <tr>
+                            <th>N°</th><th>CABALLO</th><th>DIVIDENDO ACTUAL</th>
+                            <th>TOTAL APOSTADO</th><th>CANTIDAD DE APUESTAS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bodyParticipantes"></tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <script type="module">
+        import dispatcher from '/CommandDispatcher.js';
+        import { SSECommandDispatcher } from '/SSECommandDispatcher.js';
+
+        const $ = id => document.getElementById(id);
+        const fmt = v => v != null ? '$' + Number(v).toLocaleString('es-UY') : '—';
+
+        // id de carrera desde la query string (?id=7)
+        const params = new URLSearchParams(window.location.search);
+        const idCarrera = params.get('id');
+
+        function renderCarrera(c) {
+            $('mensajeError').style.display = 'none';
+            $('carreraCard').style.display = 'block';
+            $('seccionParticipantes').style.display = 'block';
+
+            $('carreraNumero').textContent = c.numero;
+            $('carreraNombre').textContent = c.nombre;
+            $('carreraTotal').textContent  = fmt(c.totalApostado);
+
+            const est = $('carreraEstado');
+            est.textContent = c.estado;
+            est.className = 'badge-estado estado-' + (c.estado || '').toLowerCase();
+
+            // tabla de participantes
+            $('bodyParticipantes').innerHTML = (c.participaciones || []).map(p => `
+                <tr>
+                    <td class="cell-num">${p.nroParticipacion}</td>
+                    <td>${p.nombreCaballo}</td>
+                    <td class="cell-dividendo">${p.dividendoValido ? '$' + p.dividendoActual.toFixed(2) : 'S/E'}</td>
+                    <td class="cell-money green">${fmt(p.totalApostado)}</td>
+                    <td>${p.cantidadApuestas}</td>
+                </tr>`).join('');
+
+            // llenar el select de ganador
+            const sel = $('selectGanador');
+            sel.innerHTML = '<option value="0">— Elegir caballo ganador —</option>' +
+                (c.participaciones || []).map(p =>
+                    `<option value="${p.nroParticipacion}">N° ${p.nroParticipacion} — ${p.nombreCaballo}</option>`
+                ).join('');
+        }
+
+        function mostrarError(msg) {
+            $('mensajeError').textContent = msg;
+            $('mensajeError').style.display = 'block';
+        }
+
+        const view = dispatcher.registerView('gestionCarrera', {
+            urlInicio: null,
+            onException: (msg) => mostrarError(msg)
+        });
+
+        view.handler('carrera',           c   => renderCarrera(c));
+        view.handler('error',             msg => mostrarError(msg));
+        view.handler('accesoNoPermitido', url => { window.location.href = url; });
+        view.handler('accesoPermitido',   url => { window.location.href = url; });
+
+        dispatcher.startView(view);
+        new SSECommandDispatcher('/gestionCarrera/registrarSSE', dispatcher);
+
+        // inicializa la vista pasando el id de la query string
+        dispatcher.submit('/gestionCarrera/vistaConectada', { idCarrera });
+
+        // Botones SIEMPRE habilitados (para testear cursos alternativos)
+        $('btnAbrir').addEventListener('click', () => {
+            $('mensajeError').style.display = 'none';
+            dispatcher.submit('/gestionCarrera/abrir', { idCarrera });
+        });
+        $('btnCerrar').addEventListener('click', () => {
+            $('mensajeError').style.display = 'none';
+            dispatcher.submit('/gestionCarrera/cerrar', { idCarrera });
+        });
+        $('btnFinalizar').addEventListener('click', () => {
+            $('mensajeError').style.display = 'none';
+            const nroGanador = $('selectGanador').value;
+            dispatcher.submit('/gestionCarrera/finalizar', { idCarrera, nroGanador });
+        });
+        $('btnVolver').addEventListener('click', () => {
+            dispatcher.submit('/gestionCarrera/volver', {});
+        });
+    </script>
+
+</body>
+</html>

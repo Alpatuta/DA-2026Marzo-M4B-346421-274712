@@ -1,18 +1,19 @@
 package uy.edu.ort.obligatorioDA.servicios.Fachada;
 
-import uy.edu.ort.obligatorioDA.servicios.SistemaUsuario;
-import uy.edu.ort.obligatorioDA.servicios.SistemaApuesta;
-import uy.edu.ort.obligatorioDA.servicios.SistemaCarrera;
-import uy.edu.ort.obligatorioDA.dominio.Administrador;
-import uy.edu.ort.obligatorioDA.dominio.Jugador;
 import java.util.Date;
-import uy.edu.ort.obligatorioDA.dominio.Jornada;
-import uy.edu.ort.obligatorioDA.dominio.Carrera;
 import java.util.List;
+
+import uy.edu.ort.obligatorioDA.dominio.Administrador;
 import uy.edu.ort.obligatorioDA.dominio.Apuesta;
+import uy.edu.ort.obligatorioDA.dominio.Carrera;
+import uy.edu.ort.obligatorioDA.dominio.Jornada;
+import uy.edu.ort.obligatorioDA.dominio.Jugador;
 import uy.edu.ort.obligatorioDA.dominio.Participacion;
 import uy.edu.ort.obligatorioDA.dominio.Usuario;
 import uy.edu.ort.obligatorioDA.excepciones.ObligatorioException;
+import uy.edu.ort.obligatorioDA.servicios.SistemaApuesta;
+import uy.edu.ort.obligatorioDA.servicios.SistemaCarrera;
+import uy.edu.ort.obligatorioDA.servicios.SistemaUsuario;
 
 public class Fachada {
 
@@ -59,7 +60,19 @@ public class Fachada {
 	}
 
 	public Carrera obtenerDetalleCarrera(int idCarrera) {
-		return null;
+		return sc.obtenerCarreraPorId(idCarrera);
+	}
+
+	public void abrirCarrera(int idCarrera) throws ObligatorioException {
+		sc.abrirCarrera(idCarrera);
+	}
+
+	public void cerrarCarrera(int idCarrera) throws ObligatorioException {
+		sc.cerrarCarrera(idCarrera);
+	}
+
+	public void finalizarCarrera(int idCarrera, int idGanador) throws ObligatorioException {
+		sc.finalizarCarrera(idCarrera, idGanador);
 	}
 
 	public Jugador obtenerJugadorPorNombre(String nombreUsuario) {

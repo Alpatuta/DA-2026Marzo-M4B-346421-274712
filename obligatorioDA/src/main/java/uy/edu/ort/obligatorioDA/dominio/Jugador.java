@@ -28,12 +28,14 @@ public class Jugador extends Usuario {
 	}
 
 	public void acreditarSaldo(Double monto) {
+		this.saldo += monto;
 
 	}
 
 	public void descontarSaldo(Double monto) {
-
+		this.saldo -= monto;
 	}
+	
 
 	public String getNombreUsuario() {
 		return super.getNombreUsuario();

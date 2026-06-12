@@ -1,6 +1,8 @@
 package uy.edu.ort.obligatorioDA.dominio;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import uy.edu.ort.obligatorioDA.Observer.IObservador;
@@ -44,6 +46,26 @@ public class Carrera extends Observable {
 		}
 
 		return total;
+	}
+
+	public Participacion obtenerParticipacionPorNro(int nroParticipacion) {
+		for (Participacion p : participantes) {
+			if (p.getNroParticipacion() == nroParticipacion) {
+				return p;
+			}
+		}
+		return null;
+	}
+
+	public void fijarDividendoFinales() {
+		for (Participacion p : participantes) {
+			p.fijarDividendoFinal();
+		}
+	}
+
+	public void registrarHoraFinalizacion() {
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		this.horaFinalizacion = sdf.format(new Date());
 	}
 
 	public int cantidadApuestasCarrera() {

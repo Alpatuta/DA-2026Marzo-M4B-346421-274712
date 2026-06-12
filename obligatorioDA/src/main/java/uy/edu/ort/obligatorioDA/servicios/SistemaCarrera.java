@@ -1,13 +1,15 @@
 package uy.edu.ort.obligatorioDA.servicios;
 
-import uy.edu.ort.obligatorioDA.dominio.Hipodromo;
-import uy.edu.ort.obligatorioDA.dominio.Jornada;
-
-import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+
 import uy.edu.ort.obligatorioDA.dominio.Carrera;
+import uy.edu.ort.obligatorioDA.dominio.Hipodromo;
+import uy.edu.ort.obligatorioDA.dominio.Jornada;
+import uy.edu.ort.obligatorioDA.dominio.Participacion;
+import uy.edu.ort.obligatorioDA.excepciones.ObligatorioException;
 
 public class SistemaCarrera {
 
@@ -76,6 +78,47 @@ public class SistemaCarrera {
 				&& ca.get(Calendar.DAY_OF_MONTH) == cb.get(Calendar.DAY_OF_MONTH);
 
 	}
+
+	public Carrera obtenerCarreraPorId(int id) {
+		for (Jornada j : hipodromo.getJornadas()) {
+			for (Carrera c : j.getCarreras()) {
+				if (c.getIdCarrera() == id) {
+					return c;
+				}
+			}
+		}
+		return null;
+	}
+
+	public void abrirCarrera(int idCarrera) throws ObligatorioException {
+		Carrera c = obtenerCarreraPorId(idCarrera);
+		if (c == null) {
+			throw new ObligatorioException("No hay carrera seleccionada");
+		}
+		c.getEstado().abrir(c); 
+	}
+
+	public void cerrarCarrera(int idCarrera) throws ObligatorioException {
+		Carrera c = obtenerCarreraPorId(idCarrera);
+		if (c == null) {
+			throw new ObligatorioException("No hay carrera seleccionada");
+		}
+		c.getEstado().cerrar(c); 
+	}
+
+	public void finalizarCarrera(int idCarrera, int nroParticipacionGanadora) throws ObligatorioException {
+		Carrera c = obtenerCarreraPorId(idCarrera);
+		if (c == null) {
+			throw new ObligatorioException("No hay carrera seleccionada");
+		}
+		Participacion ganador = c.obtenerParticipacionPorNro(nroParticipacionGanadora);
+		
+		if (ganador == null) {
+			throw new ObligatorioException("Debe indicar el caballo ganador de la carrera");
+		}
+		c.getEstado().finalizar(c, ganador); 
+	}
+
 
 	public List<Carrera> obtenerCarrerasApostables() {
 		return null;

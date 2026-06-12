@@ -9,19 +9,11 @@ public class EstadoEstable extends EstadoCarrera {
     }
 
     @Override
-    public void abrir(Carrera carrera) throws ObligatorioException {
-        throw new ObligatorioException("La carrera ya se encuentra Abierta/Estable.");
-    }
-
-    @Override
     public void cerrar(Carrera carrera) throws ObligatorioException {
+        //El dividendo con el que se paga es en el momento que se cierra la carrera. Si no lo hacemos, el pago saldria mal. 
+        carrera.fijarDividendoFinales(); 
         // Estable → Cerrada (válido)
         carrera.cambiarEstado(new EstadoCerrada());
-    }
-
-    @Override
-    public void finalizar(Carrera carrera, Participacion ganador) throws ObligatorioException {
-        throw new ObligatorioException("No se puede finalizar una carrera en estado Estable.");
     }
 
     @Override

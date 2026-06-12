@@ -14,14 +14,23 @@ public abstract class EstadoCarrera {
 		this.nombre = nombre;
 	}
 
-	public abstract void abrir(Carrera carrera) throws ObligatorioException;
+	public void abrir(Carrera carrera) throws ObligatorioException {
+		throw new ObligatorioException("No se puede abrir esta carrera ");
 
-	public abstract void cerrar(Carrera carrera) throws ObligatorioException;
+	}
 
-	public abstract void finalizar(Carrera carrera, Participacion ganador) throws ObligatorioException;
+	public void cerrar(Carrera carrera) throws ObligatorioException {
+		throw new ObligatorioException("No se puede cerrar esta carrera ");
+	}
+
+	public void finalizar(Carrera carrera, Participacion ganador) throws ObligatorioException {
+		throw new ObligatorioException("No se puede finalizar esta carrera ");
+	}
 
 	public abstract boolean permiteApuestas();
 
-	public abstract void dividendoActualizado(Carrera carrera) throws ObligatorioException;
+	public void dividendoActualizado(Carrera carrera) throws ObligatorioException {
+
+	}
 
 }
