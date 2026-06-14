@@ -20,7 +20,11 @@ public class Observable {
 	public void notificarObservadores(Object evento) {
 		List<IObservador> copia = new ArrayList<>(listaObservers);
 		for (IObservador o : copia) {
-			o.actualizar(this, evento);
+			try {
+				o.actualizar(this, evento);
+			} catch (Exception e) {
+				System.out.println("Error notificando a un observador: " + e.getMessage());
+			}
 		}
 	}
 

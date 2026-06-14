@@ -39,7 +39,6 @@ public class PresentadorTableroAdministrador implements IObservador {
 	@GetMapping(value = "/registrarSSE", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
 	public SseEmitter registrarSSE() {
 		conexionNavegador.conectarSSE();
-		fachada.agregarObserver(this);
 		return conexionNavegador.getConexionSSE();
 	}
 
@@ -58,6 +57,7 @@ public class PresentadorTableroAdministrador implements IObservador {
 		for (Carrera c : jornadaActual.getCarreras()) {
 			c.agregarObserver(this);
 		}
+		fachada.agregarObserver(this);
 		float comision = fachada.getComisionHipodromo();
 		return Commands.create(
 				new Command("nombreAdmin", adminDto.getNombreCompleto()),
@@ -68,11 +68,7 @@ public class PresentadorTableroAdministrador implements IObservador {
 	public Commands avanzarJornada() {
 		Jornada siguiente = fachada.obtenerJornadaSiguiente(jornadaActual);
 		if (siguiente != null) {
-			for (Carrera c : jornadaActual.getCarreras())
-				c.removerObserver(this);
 			jornadaActual = siguiente;
-			for (Carrera c : jornadaActual.getCarreras())
-				c.agregarObserver(this);
 		}
 		float comision = fachada.getComisionHipodromo();
 		return Commands.create(new Command("jornada", new JornadaDto(jornadaActual, comision)));
@@ -82,11 +78,7 @@ public class PresentadorTableroAdministrador implements IObservador {
 	public Commands retrocederJornada() {
 		Jornada anterior = fachada.obtenerJornadaAnterior(jornadaActual);
 		if (anterior != null) {
-			for (Carrera c : jornadaActual.getCarreras())
-				c.removerObserver(this);
 			jornadaActual = anterior;
-			for (Carrera c : jornadaActual.getCarreras())
-				c.agregarObserver(this);
 		}
 		float comision = fachada.getComisionHipodromo();
 		return Commands.create(new Command("jornada", new JornadaDto(jornadaActual, comision)));
@@ -100,6 +92,7 @@ public class PresentadorTableroAdministrador implements IObservador {
 	@PostMapping("/logout")
 	public Commands logout(HttpSession httpSession) {
 		HttpSesion sesion = new HttpSesion(httpSession);
+		fachada.removerObserver(this);
 		fachada.desconectarAdmin(sesion.getNombreAdmin());
 		sesion.invalidar();
 		return Commands.create(new Command("accesoPermitido", "loginAdmin.html"));

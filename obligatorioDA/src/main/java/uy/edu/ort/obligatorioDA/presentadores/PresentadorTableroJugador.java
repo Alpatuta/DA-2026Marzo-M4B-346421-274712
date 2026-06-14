@@ -37,7 +37,6 @@ public class PresentadorTableroJugador implements IObservador {
     private final Fachada fachada;
     private final ConexionNavegador conexionNavegador;
     private Jugador jugadorActual;
-    private List<Carrera> carrerasObservadas = new ArrayList<>();
 
     public PresentadorTableroJugador(Fachada fachada, ConexionNavegador conexionNavegador) {
         this.fachada = fachada;
@@ -47,7 +46,6 @@ public class PresentadorTableroJugador implements IObservador {
     @GetMapping(value = "/registrarSSE", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter registrarSSE() {
         conexionNavegador.conectarSSE();
-        fachada.agregarObserver(this);
         return conexionNavegador.getConexionSSE();
     }
 
@@ -57,7 +55,7 @@ public class PresentadorTableroJugador implements IObservador {
             return Commands.create(new Command("accesoNoPermitido", "loginJugador.html"));
         }
         jugadorActual = fachada.obtenerJugadorPorNombre(jugadorDto.getNombreUsuario());
-        suscribirCarrerasApostables();
+        fachada.agregarObserver(this);
         return comandosTablero();
     }
 
@@ -75,7 +73,7 @@ public class PresentadorTableroJugador implements IObservador {
     @PostMapping("/logout")
     public Commands logout(HttpSession httpSession) {
         HttpSesion sesion = new HttpSesion(httpSession);
-        desuscribirCarreras();
+        fachada.removerObserver(this);
         sesion.invalidar();
         return Commands.create(new Command("accesoPermitido", "loginJugador.html"));
     }
@@ -117,19 +115,5 @@ public class PresentadorTableroJugador implements IObservador {
             dtos.add(new ApuestaDto(a));
         }
         return dtos;
-    }
-
-    private void suscribirCarrerasApostables() {
-        carrerasObservadas = fachada.obtenerCarrerasApostables();
-        for (Carrera c : carrerasObservadas) {
-            c.agregarObserver(this);
-        }
-    }
-
-    private void desuscribirCarreras() {
-        for (Carrera c : carrerasObservadas) {
-            c.removerObserver(this);
-        }
-        carrerasObservadas.clear();
     }
 }

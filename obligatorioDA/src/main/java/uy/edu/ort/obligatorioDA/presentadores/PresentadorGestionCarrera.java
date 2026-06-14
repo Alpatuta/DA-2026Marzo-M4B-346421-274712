@@ -36,7 +36,6 @@ public class PresentadorGestionCarrera implements IObservador {
     @GetMapping(value = "/registrarSSE", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter registrarSSE() {
         conexionNavegador.conectarSSE();
-        fachada.agregarObserver(this);
         return conexionNavegador.getConexionSSE();
     }
 
@@ -54,6 +53,7 @@ public class PresentadorGestionCarrera implements IObservador {
             return Commands.create(new Command("error", "No hay carrera seleccionada"));
         }
         carreraActual.agregarObserver(this);
+        fachada.agregarObserver(this);
         return comandoCarrera();
     }
 
@@ -78,9 +78,7 @@ public class PresentadorGestionCarrera implements IObservador {
 
     @PostMapping("/volver")
     public Commands volverTablero() {
-        if (carreraActual != null) {
-            carreraActual.removerObserver(this);
-        }
+        fachada.removerObserver(this);
         return Commands.create(new Command("accesoPermitido", "tableroAdmin.html"));
     }
 
