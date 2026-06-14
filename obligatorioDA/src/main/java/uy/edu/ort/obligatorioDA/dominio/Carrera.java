@@ -25,8 +25,6 @@ public class Carrera extends Observable {
 
 	private String horaFinalizacion;
 
-	private List<IObservador> listaObservers;
-
 	private static int contadorId = 0;
 
 	public Carrera(String nombre) {
@@ -93,10 +91,6 @@ public class Carrera extends Observable {
 
 	public Boolean estaFinalizada() {
 		return estado instanceof EstadoFinalizada;
-	}
-
-	public Boolean estaProxima() {
-		return !estaFinalizada();
 	}
 
 	public Boolean todosDividendosValidos() {

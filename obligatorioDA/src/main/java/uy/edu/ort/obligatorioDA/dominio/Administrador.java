@@ -6,12 +6,4 @@ public class Administrador extends Usuario {
         super(nombreUsuario, nombreCompleto, contrasenia);
     }
 
-    public String getNombreUsuario() {
-        return super.getNombreUsuario();
-    }
-
-    public String getNombreCompleto() {
-        return super.getNombreCompleto();
-    }
-
 }

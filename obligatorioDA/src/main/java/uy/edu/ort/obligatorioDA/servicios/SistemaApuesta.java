@@ -15,10 +15,6 @@ public class SistemaApuesta extends Observable {
 
     private List<ModalidadApuesta> modalidades = new ArrayList<>();
 
-    public SistemaApuesta getInstancia() {
-        return null;
-    }
-
     public List<ModalidadApuesta> obtenerModalidades() {
         return modalidades;
     }
@@ -62,14 +58,6 @@ public class SistemaApuesta extends Observable {
         carrera.recalcularDividendos(comision);
         notificarObservadores(this); // Notifico a los observadores que se ha realizado una apuesta, para que puedan
                                      // actualizar su información de dividendos
-    }
-
-    public List<Apuesta> obtenerApuestasPorJugador(Jugador jugador) {
-        return null;
-    }
-
-    public List<Apuesta> obtenerApuestasPorParticipacion(Participacion participacion) {
-        return null;
     }
 
 }

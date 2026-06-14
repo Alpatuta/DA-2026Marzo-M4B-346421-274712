@@ -5,7 +5,6 @@ import uy.edu.ort.obligatorioDA.dominio.Administrador;
 import uy.edu.ort.obligatorioDA.dominio.Usuario;
 import uy.edu.ort.obligatorioDA.dtos.AdminDto;
 import uy.edu.ort.obligatorioDA.excepciones.ObligatorioException;
-import uy.edu.ort.obligatorioDA.presentadores.Commands;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

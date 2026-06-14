@@ -31,11 +31,7 @@ public class Apuesta {
 		if (monto <= 0) {
 			throw new IllegalArgumentException("El monto apostado debe ser mayor a cero.");
 		}
-		
-	}
 
-	public Double getCostoDescontar() {
-		return costoDescontar;
 	}
 
 	public Double getMontoApostado() {
@@ -48,7 +44,7 @@ public class Apuesta {
 
 	public Participacion getParticipacion() {
 		return participacion;
-	}	
+	}
 
 	public ModalidadApuesta getModalidadApuesta() {
 		return modalidadApuesta;
@@ -64,13 +60,11 @@ public class Apuesta {
 
 	public Jugador getJugador() {
 		return jugador;
-	}	
+	}
 
 	public void setParticipacion(Participacion participacion) {
 		this.participacion = participacion;
 	}
-
-	
 
 	public void pagar(Double dividendo, double totalApostadoParticipacion) {
 		// Cambio el dividendo final para que sepa cuanto tiene que pagarle al jugador

@@ -6,7 +6,6 @@ import java.util.List;
 import uy.edu.ort.obligatorioDA.Observer.IObservador;
 import uy.edu.ort.obligatorioDA.Observer.Observable;
 import uy.edu.ort.obligatorioDA.dominio.Administrador;
-import uy.edu.ort.obligatorioDA.dominio.Apuesta;
 import uy.edu.ort.obligatorioDA.dominio.Carrera;
 import uy.edu.ort.obligatorioDA.dominio.Jornada;
 import uy.edu.ort.obligatorioDA.dominio.Jugador;
@@ -84,10 +83,6 @@ public class Fachada extends Observable implements IObservador {
 		return su.obtenerJugadorPorNombre(nombreUsuario);
 	}
 
-	public List<Apuesta> obtenerApuestasPorJugador(Jugador jugador) {
-		return null;
-	}
-
 	public List<Carrera> obtenerCarrerasApostables() {
 		return sc.obtenerCarrerasApostables();
 	}
@@ -108,10 +103,6 @@ public class Fachada extends Observable implements IObservador {
 
 	public ModalidadApuesta obtenerModalidadPorNombre(String nombre) {
 		return sa.obtenerModalidadPorNombre(nombre);
-	}
-
-	public List<Participacion> obtenerApuestasPorParticipacion(Participacion participacion) {
-		return null;
 	}
 
 	public void agregarUsuario(Usuario usuario) {

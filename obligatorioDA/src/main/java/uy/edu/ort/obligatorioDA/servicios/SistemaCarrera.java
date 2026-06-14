@@ -16,8 +16,6 @@ public class SistemaCarrera extends Observable {
 
 	private Hipodromo hipodromo = new Hipodromo();
 
-	private List<Carrera> carreras = new ArrayList<>();
-
 	public void agregarJornada(Jornada j) {
 		hipodromo.agregarJornada(j);
 	}
