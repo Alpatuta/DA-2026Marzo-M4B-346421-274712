@@ -36,12 +36,13 @@ public class PresentadorGestionCarrera implements IObservador {
     @GetMapping(value = "/registrarSSE", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter registrarSSE() {
         conexionNavegador.conectarSSE();
+        fachada.agregarObserver(this);
         return conexionNavegador.getConexionSSE();
     }
 
     @PostMapping("/vistaConectada")
     public Commands inicializarVista(@RequestParam(required = false) Integer idCarrera,
-                                     @SessionAttribute(name = "admin", required = false) AdminDto adminDto) {
+            @SessionAttribute(name = "admin", required = false) AdminDto adminDto) {
         if (adminDto == null) {
             return Commands.create(new Command("accesoNoPermitido", "loginAdmin.html"));
         }
@@ -69,7 +70,8 @@ public class PresentadorGestionCarrera implements IObservador {
     }
 
     @PostMapping("/finalizar")
-    public Commands finalizarCarrera(@RequestParam int idCarrera, @RequestParam int nroGanador) throws ObligatorioException {
+    public Commands finalizarCarrera(@RequestParam int idCarrera, @RequestParam int nroGanador)
+            throws ObligatorioException {
         fachada.finalizarCarrera(idCarrera, nroGanador);
         return comandoCarrera();
     }
@@ -84,11 +86,11 @@ public class PresentadorGestionCarrera implements IObservador {
 
     @Override
     public void actualizar(Observable origen, Object evento) {
-        conexionNavegador.enviarJSON( comandoCarrera() );
-        
+        conexionNavegador.enviarJSON(comandoCarrera());
+
     }
 
-	private Commands comandoCarrera() {
-    return Commands.create(new Command("carrera", new CarreraDetalleDto(carreraActual)));
-}
+    private Commands comandoCarrera() {
+        return Commands.create(new Command("carrera", new CarreraDetalleDto(carreraActual)));
+    }
 }

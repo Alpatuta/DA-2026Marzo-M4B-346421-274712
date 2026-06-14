@@ -39,6 +39,7 @@ public class PresentadorTableroAdministrador implements IObservador {
 	@GetMapping(value = "/registrarSSE", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
 	public SseEmitter registrarSSE() {
 		conexionNavegador.conectarSSE();
+		fachada.agregarObserver(this);
 		return conexionNavegador.getConexionSSE();
 	}
 
@@ -93,7 +94,7 @@ public class PresentadorTableroAdministrador implements IObservador {
 
 	@PostMapping("/gestionarCarrera")
 	public Commands gestionarCarrera(@RequestParam int idCarrera) {
-    return Commands.create(new Command("accesoPermitido", "gestionCarrera.html?id=" + idCarrera));
+		return Commands.create(new Command("accesoPermitido", "gestionCarrera.html?id=" + idCarrera));
 	}
 
 	@PostMapping("/logout")

@@ -47,6 +47,7 @@ public class PresentadorTableroJugador implements IObservador {
     @GetMapping(value = "/registrarSSE", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter registrarSSE() {
         conexionNavegador.conectarSSE();
+        fachada.agregarObserver(this);
         return conexionNavegador.getConexionSSE();
     }
 
@@ -62,10 +63,10 @@ public class PresentadorTableroJugador implements IObservador {
 
     @PostMapping("/prepararApuesta")
     public Commands prepararApuesta(HttpSession httpSession,
-                                    @RequestParam int idCarrera,
-                                    @RequestParam int nroParticipacion,
-                                    @RequestParam String nombreModalidad,
-                                    @RequestParam double monto) {
+            @RequestParam int idCarrera,
+            @RequestParam int nroParticipacion,
+            @RequestParam String nombreModalidad,
+            @RequestParam double monto) {
         HttpSesion sesion = new HttpSesion(httpSession);
         sesion.setApuestaEnCurso(new ApuestaEnCursoDto(idCarrera, nroParticipacion, nombreModalidad, monto));
         return Commands.create(new Command("accesoPermitido", "confirmarApuesta.html"));
@@ -88,11 +89,10 @@ public class PresentadorTableroJugador implements IObservador {
 
     private Commands comandosTablero() {
         return Commands.create(
-            new Command("jugador",     new JugadorTableroDto(jugadorActual)),
-            new Command("modalidades", construirModalidades()),
-            new Command("carreras",    construirCarrerasApostables()),
-            new Command("apuestas",    construirApuestas())
-        );
+                new Command("jugador", new JugadorTableroDto(jugadorActual)),
+                new Command("modalidades", construirModalidades()),
+                new Command("carreras", construirCarrerasApostables()),
+                new Command("apuestas", construirApuestas()));
     }
 
     private List<CarreraApostableDto> construirCarrerasApostables() {

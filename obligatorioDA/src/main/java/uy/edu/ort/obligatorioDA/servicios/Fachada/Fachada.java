@@ -3,6 +3,8 @@ package uy.edu.ort.obligatorioDA.servicios.Fachada;
 import java.util.Date;
 import java.util.List;
 
+import uy.edu.ort.obligatorioDA.Observer.IObservador;
+import uy.edu.ort.obligatorioDA.Observer.Observable;
 import uy.edu.ort.obligatorioDA.dominio.Administrador;
 import uy.edu.ort.obligatorioDA.dominio.Apuesta;
 import uy.edu.ort.obligatorioDA.dominio.Carrera;
@@ -16,7 +18,7 @@ import uy.edu.ort.obligatorioDA.servicios.SistemaApuesta;
 import uy.edu.ort.obligatorioDA.servicios.SistemaCarrera;
 import uy.edu.ort.obligatorioDA.servicios.SistemaUsuario;
 
-public class Fachada {
+public class Fachada extends Observable implements IObservador {
 
 	private static Fachada instancia = new Fachada();
 
@@ -30,6 +32,8 @@ public class Fachada {
 		su = new SistemaUsuario();
 		sa = new SistemaApuesta();
 		sc = new SistemaCarrera();
+		sa.agregarObserver(this);
+		sc.agregarObserver(this);
 	}
 
 	public Administrador loginAdministrador(String nombre, String contrasenia) throws ObligatorioException {
@@ -128,6 +132,11 @@ public class Fachada {
 
 	public void setComisionHipodromo(float comision) {
 		sc.setComisionHipodromo(comision);
+	}
+
+	@Override
+	public void actualizar(Observable origen, Object evento) {
+		notificarObservadores(evento);
 	}
 
 }

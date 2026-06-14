@@ -3,6 +3,7 @@ package uy.edu.ort.obligatorioDA.servicios;
 import java.util.ArrayList;
 import java.util.List;
 
+import uy.edu.ort.obligatorioDA.Observer.Observable;
 import uy.edu.ort.obligatorioDA.dominio.Apuesta;
 import uy.edu.ort.obligatorioDA.dominio.Carrera;
 import uy.edu.ort.obligatorioDA.dominio.Jugador;
@@ -10,7 +11,7 @@ import uy.edu.ort.obligatorioDA.dominio.ModalidadApuesta;
 import uy.edu.ort.obligatorioDA.dominio.Participacion;
 import uy.edu.ort.obligatorioDA.excepciones.ObligatorioException;
 
-public class SistemaApuesta {
+public class SistemaApuesta extends Observable {
 
     private List<ModalidadApuesta> modalidades = new ArrayList<>();
 
@@ -59,6 +60,8 @@ public class SistemaApuesta {
         jugador.agregarApuesta(apuesta);
         jugador.descontarSaldo(costo);
         carrera.recalcularDividendos(comision);
+        notificarObservadores(this); // Notifico a los observadores que se ha realizado una apuesta, para que puedan
+                                     // actualizar su información de dividendos
     }
 
     public List<Apuesta> obtenerApuestasPorJugador(Jugador jugador) {
