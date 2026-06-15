@@ -54,14 +54,10 @@ public class PresentadorTableroAdministrador implements IObservador {
 					new Command("nombreAdmin", adminDto.getNombreCompleto()),
 					new Command("error", "No hay jornadas definidas en el sistema"));
 		}
-		for (Carrera c : jornadaActual.getCarreras()) {
-			c.agregarObserver(this);
-		}
-		fachada.agregarObserver(this);
-		float comision = fachada.getComisionHipodromo();
+		registrarObservadoresCarreras();
 		return Commands.create(
 				new Command("nombreAdmin", adminDto.getNombreCompleto()),
-				new Command("jornada", new JornadaDto(jornadaActual, comision)));
+				comandoJornada());
 	}
 
 	@PostMapping("/avanzarJornada")
@@ -70,8 +66,8 @@ public class PresentadorTableroAdministrador implements IObservador {
 		if (siguiente != null) {
 			jornadaActual = siguiente;
 		}
-		float comision = fachada.getComisionHipodromo();
-		return Commands.create(new Command("jornada", new JornadaDto(jornadaActual, comision)));
+
+		return Commands.create(comandoJornada());
 	}
 
 	@PostMapping("/retrocederJornada")
@@ -80,8 +76,7 @@ public class PresentadorTableroAdministrador implements IObservador {
 		if (anterior != null) {
 			jornadaActual = anterior;
 		}
-		float comision = fachada.getComisionHipodromo();
-		return Commands.create(new Command("jornada", new JornadaDto(jornadaActual, comision)));
+		return Commands.create(comandoJornada());
 	}
 
 	@PostMapping("/gestionarCarrera")
@@ -100,9 +95,23 @@ public class PresentadorTableroAdministrador implements IObservador {
 
 	@Override
 	public void actualizar(Observable origen, Object evento) {
-		float comision = fachada.getComisionHipodromo();
 		conexionNavegador.enviarJSON(
-				Commands.create(new Command("jornada", new JornadaDto(jornadaActual, comision))));
+				Commands.create(comandoJornada()));
+	}
+
+	// Metodos privados para SRP
+
+	private Command comandoJornada() {
+		float comision = fachada.getComisionHipodromo();
+		return new Command("jornada", new JornadaDto(jornadaActual, comision));
+	}
+
+	private void registrarObservadoresCarreras() {
+		for (Carrera c : jornadaActual.getCarreras()) {
+			c.agregarObserver(this);
+		}
+
+		fachada.agregarObserver(this);
 	}
 
 }

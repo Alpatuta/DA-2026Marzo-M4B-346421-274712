@@ -78,32 +78,22 @@ public class SistemaCarrera extends Observable {
 	}
 
 	public void abrirCarrera(int idCarrera) throws ObligatorioException {
-		Carrera c = obtenerCarreraPorId(idCarrera);
-		if (c == null) {
-			throw new ObligatorioException("No hay carrera seleccionada");
-		}
+		Carrera c = obtenerCarreraValidada(idCarrera);
 		c.getEstado().abrir(c);
 		notificarObservadores(this);// Notifico a los observadores que se ha abierto una carrera, para que puedan
 									// actualizar su información de dividendos
 	}
 
 	public void cerrarCarrera(int idCarrera) throws ObligatorioException {
-		Carrera c = obtenerCarreraPorId(idCarrera);
-		if (c == null) {
-			throw new ObligatorioException("No hay carrera seleccionada");
-		}
+		Carrera c = obtenerCarreraValidada(idCarrera);
 		c.getEstado().cerrar(c);
 		notificarObservadores(this);// Notifico a los observadores que se ha cerrado una carrera, para que puedan
 									// actualizar su información de dividendos
 	}
 
 	public void finalizarCarrera(int idCarrera, int nroParticipacionGanadora) throws ObligatorioException {
-		Carrera c = obtenerCarreraPorId(idCarrera);
-		if (c == null) {
-			throw new ObligatorioException("No hay carrera seleccionada");
-		}
+		Carrera c = obtenerCarreraValidada(idCarrera);
 		Participacion ganador = c.obtenerParticipacionPorNro(nroParticipacionGanadora);
-
 		if (ganador == null) {
 			throw new ObligatorioException("Debe indicar el caballo ganador de la carrera");
 		}
@@ -142,6 +132,14 @@ public class SistemaCarrera extends Observable {
 				&& ca.get(Calendar.MONTH) == cb.get(Calendar.MONTH)
 				&& ca.get(Calendar.DAY_OF_MONTH) == cb.get(Calendar.DAY_OF_MONTH);
 
+	}
+
+	private Carrera obtenerCarreraValidada(int idCarrera) throws ObligatorioException {
+		Carrera c = obtenerCarreraPorId(idCarrera);
+		if (c == null) {
+			throw new ObligatorioException("No hay carrera seleccionada");
+		}
+		return c;
 	}
 
 }

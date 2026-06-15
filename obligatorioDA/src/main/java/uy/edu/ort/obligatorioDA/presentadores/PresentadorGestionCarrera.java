@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import jakarta.servlet.http.HttpSession;
 import uy.edu.ort.obligatorioDA.Observer.ConexionNavegador;
 import uy.edu.ort.obligatorioDA.Observer.IObservador;
 import uy.edu.ort.obligatorioDA.Observer.Observable;
@@ -80,6 +81,15 @@ public class PresentadorGestionCarrera implements IObservador {
     public Commands volverTablero() {
         fachada.removerObserver(this);
         return Commands.create(new Command("accesoPermitido", "tableroAdmin.html"));
+    }
+
+    @PostMapping("/logout")
+    public Commands logout(HttpSession httpSession) {
+        HttpSesion sesion = new HttpSesion(httpSession);
+        fachada.removerObserver(this);
+        fachada.desconectarAdmin(sesion.getNombreAdmin());
+        sesion.invalidar();
+        return Commands.create(new Command("accesoPermitido", "loginAdmin.html"));
     }
 
     @Override

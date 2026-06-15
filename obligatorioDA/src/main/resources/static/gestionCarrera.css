@@ -35,6 +35,13 @@ body {
     cursor:pointer; transition:color 0.18s, border-color 0.18s;
 }
 .btn-volver:hover { color:var(--blue); border-color:rgba(59,130,246,0.4); }
+.header-actions { display:flex; align-items:center; gap:12px; }
+.btn-logout {
+    background:transparent; border:1px solid var(--border-light); border-radius:var(--radius);
+    color:var(--text-secondary); font-family:var(--font); font-size:12px; padding:6px 12px;
+    cursor:pointer; transition:color 0.18s, border-color 0.18s;
+}
+.btn-logout:hover { color:var(--red); border-color:rgba(239,68,68,0.4); }
 
 /* MAIN */
 .main-content {

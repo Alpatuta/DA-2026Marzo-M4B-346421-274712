@@ -16,7 +16,10 @@
             <span class="header-title">MalaPata</span>
             <span class="header-sub">Gestión de Carrera</span>
         </div>
-        <button class="btn-volver" id="btnVolver">← Volver al tablero</button>
+        <div class="header-actions">
+            <button class="btn-volver" id="btnVolver">← Volver al tablero</button>
+            <button class="btn-logout" id="btnLogout">Cerrar sesión</button>
+        </div>
     </header>
 
     <main class="main-content">
@@ -146,6 +149,9 @@
         });
         $('btnVolver').addEventListener('click', () => {
             dispatcher.submit('/gestionCarrera/volver', {});
+        });
+        $('btnLogout').addEventListener('click', () => {
+            dispatcher.submit('/gestionCarrera/logout', {});
         });
     </script>
 

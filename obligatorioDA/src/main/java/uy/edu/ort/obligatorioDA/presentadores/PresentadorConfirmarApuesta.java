@@ -34,11 +34,8 @@ public class PresentadorConfirmarApuesta {
 		if (enCurso == null) {
 			return Commands.create(new Command("error", "No hay apuesta en curso"));
 		}
-		Carrera carrera = fachada.obtenerDetalleCarrera(enCurso.getIdCarrera());
-		Participacion participacion = carrera.obtenerParticipacionPorNro(enCurso.getNroParticipacion());
-		ModalidadApuesta modalidad = fachada.obtenerModalidadPorNombre(enCurso.getNombreModalidad());
-		return Commands.create(new Command("apuesta",
-				new ConfirmarApuestaDto(carrera, participacion, modalidad, enCurso.getMonto())));
+
+		return Commands.create(new Command("apuesta", construirDtoApuesta(enCurso)));
 	}
 
 	@PostMapping("/confirmar")
@@ -59,5 +56,12 @@ public class PresentadorConfirmarApuesta {
 		HttpSesion sesion = new HttpSesion(httpSession);
 		sesion.limpiarApuestaEnCurso();
 		return Commands.create(new Command("accesoPermitido", "tableroJugador.html"));
+	}
+
+	private ConfirmarApuestaDto construirDtoApuesta(ApuestaEnCursoDto enCurso) {
+		Carrera carrera = fachada.obtenerDetalleCarrera(enCurso.getIdCarrera());
+		Participacion participacion = carrera.obtenerParticipacionPorNro(enCurso.getNroParticipacion());
+		ModalidadApuesta modalidad = fachada.obtenerModalidadPorNombre(enCurso.getNombreModalidad());
+		return new ConfirmarApuestaDto(carrera, participacion, modalidad, enCurso.getMonto());
 	}
 }

@@ -36,28 +36,36 @@ public class SistemaApuesta extends Observable {
             ModalidadApuesta modalidad, double monto,
             String contrasenia, float comision) throws ObligatorioException {
 
+        validarApuesta(jugador, participacion, modalidad, monto, contrasenia);
+        registrarApuesta(jugador, participacion, modalidad, monto);
+        participacion.getCarrera().recalcularDividendos(comision);
+        notificarObservadores(this); // Notifico a los observadores que se ha realizado una apuesta, para que puedan
+                                     // actualizar su información de dividendos
+    }
+
+    private void validarApuesta(Jugador jugador, Participacion participacion,
+            ModalidadApuesta modalidad, double monto, String contrasenia) throws ObligatorioException {
         if (!jugador.contraseniaValida(contrasenia)) {
             throw new ObligatorioException("Contraseña incorrecta");
         }
         if (monto < 1) {
             throw new ObligatorioException("Monto inválido");
         }
-        Carrera carrera = participacion.getCarrera();
-        if (!carrera.getEstado().permiteApuestas()) {
+        if (!participacion.getCarrera().getEstado().permiteApuestas()) {
             throw new ObligatorioException("Esta carrera ya no recibe apuestas");
         }
         double costo = modalidad.calcularMontoApostado(monto);
         if (!jugador.tieneSaldoSuficiente(costo)) {
             throw new ObligatorioException("Saldo insuficiente");
         }
+    }
 
+    private void registrarApuesta(Jugador jugador, Participacion participacion,
+            ModalidadApuesta modalidad, double monto) {
         Apuesta apuesta = new Apuesta(monto, jugador, modalidad);
-        participacion.agregarApuesta(apuesta); // setea la referencia inversa
+        participacion.agregarApuesta(apuesta);
         jugador.agregarApuesta(apuesta);
-        jugador.descontarSaldo(costo);
-        carrera.recalcularDividendos(comision);
-        notificarObservadores(this); // Notifico a los observadores que se ha realizado una apuesta, para que puedan
-                                     // actualizar su información de dividendos
+        jugador.descontarSaldo(modalidad.calcularMontoApostado(monto));
     }
 
 }
