@@ -54,7 +54,7 @@ public class Apuesta {
 		return dividendoFinal;
 	}
 
-	public boolean Finalizada() {
+	public boolean estaFinalizada() {
 		return finalizada;
 	}
 

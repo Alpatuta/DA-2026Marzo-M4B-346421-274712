@@ -31,9 +31,8 @@ public class ApuestaDto {
         this.tipo = a.getModalidadApuesta().getNombre();
         this.dividendoFinal = a.getDividendoFinal();
         this.montoCobrado = a.getMontoCobrado();
-        this.estado = a.Finalizada() ? "Finalizada" : "Por correr";
+        this.estado = a.estaFinalizada() ? "Finalizada" : "Por correr";
     }
-    
 
     public String getFecha() {
         return fecha;
@@ -75,5 +74,4 @@ public class ApuestaDto {
         return estado;
     }
 
-    
 }
