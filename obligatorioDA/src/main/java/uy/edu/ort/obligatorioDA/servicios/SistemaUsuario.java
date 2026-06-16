@@ -21,13 +21,13 @@ public class SistemaUsuario {
 			}
 		}
 
-		throw new ObligatorioException("Credenciales invalidas");
+		throw new ObligatorioException("Acceso denegado");
 	}
 
 	public Administrador loginAdministrador(String nombre, String contrasenia) throws ObligatorioException {
 		Usuario u = login(nombre, contrasenia);
 		if (!(u instanceof Administrador)) {
-			throw new ObligatorioException("Usuario no es administrador");
+			throw new ObligatorioException("Acceso denegado");
 		}
 		Administrador admin = (Administrador) u;
 		if (estaConectado(admin)) {
@@ -40,7 +40,7 @@ public class SistemaUsuario {
 	public Jugador loginJugador(String nombre, String contrasenia) throws ObligatorioException {
 		Usuario u = login(nombre, contrasenia);
 		if (!(u instanceof Jugador)) {
-			throw new ObligatorioException("Usuario no es jugador");
+			throw new ObligatorioException("Acceso denegado");
 		}
 		Jugador jugador = (Jugador) u;
 		return jugador;

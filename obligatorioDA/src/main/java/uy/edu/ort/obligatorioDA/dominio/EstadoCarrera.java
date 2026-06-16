@@ -15,16 +15,16 @@ public abstract class EstadoCarrera {
 	}
 
 	public void abrir(Carrera carrera) throws ObligatorioException {
-		throw new ObligatorioException("No se puede abrir esta carrera ");
+		throw new ObligatorioException("No se puede abrir esta carrera");
 
 	}
 
 	public void cerrar(Carrera carrera) throws ObligatorioException {
-		throw new ObligatorioException("No se puede cerrar esta carrera ");
+		throw new ObligatorioException("No es posible cerrar esta carrera");
 	}
 
 	public void finalizar(Carrera carrera, Participacion ganador) throws ObligatorioException {
-		throw new ObligatorioException("No se puede finalizar esta carrera ");
+		throw new ObligatorioException("No se puede finalizar esta carrera");
 	}
 
 	public abstract boolean permiteApuestas();

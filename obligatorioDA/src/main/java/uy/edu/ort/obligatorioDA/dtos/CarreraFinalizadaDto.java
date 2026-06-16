@@ -12,7 +12,7 @@ public class CarreraFinalizadaDto {
     private Double dividendoFinal;
 
     public CarreraFinalizadaDto(Carrera carrera) {
-        this.numero = carrera.getIdCarrera();
+        this.numero = carrera.getNumero();
         this.cantidadCaballos = carrera.cantidadCaballosParticipantes();
         this.totalApostado = carrera.calcularTotalApostado();
         this.totalPagado = carrera.totalPagado();

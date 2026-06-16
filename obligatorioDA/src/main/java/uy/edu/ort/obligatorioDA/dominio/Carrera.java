@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import uy.edu.ort.obligatorioDA.Observer.IObservador;
 import uy.edu.ort.obligatorioDA.Observer.Observable;
 import uy.edu.ort.obligatorioDA.excepciones.ObligatorioException;
 
@@ -18,6 +17,8 @@ public class Carrera extends Observable {
 	private List<Participacion> participantes;
 
 	private EstadoCarrera estado;
+
+	private int numero; 
 
 	private Date fecha;
 
@@ -138,6 +139,13 @@ public class Carrera extends Observable {
 
 	public int getIdCarrera() {
 		return idCarrera;
+	}
+	public int getNumero() {
+		return numero;
+	}
+
+	public void setNumero (int numero) {
+		this.numero = numero;
 	}
 
 	public void setFecha(Date fecha) {

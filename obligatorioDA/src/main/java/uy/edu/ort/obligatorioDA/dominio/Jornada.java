@@ -17,6 +17,7 @@ public class Jornada {
 
 	public void agregarCarrera(Carrera c) {
 		c.setFecha(fecha);
+		c.setNumero(carreras.size() + 1);
 		carreras.add(c);
 	}
 

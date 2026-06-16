@@ -15,7 +15,7 @@ public class CarreraDetalleDto {
     private List<ParticipacionDto> participaciones;
 
     public CarreraDetalleDto(Carrera c) {
-        this.numero = c.getIdCarrera();
+        this.numero = c.getNumero();
         this.nombre = c.getNombreCarrera();
         this.estado = c.getEstado().getNombre();
         this.totalApostado = c.calcularTotalApostado();

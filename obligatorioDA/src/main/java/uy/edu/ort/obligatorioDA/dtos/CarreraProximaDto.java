@@ -12,7 +12,7 @@ public class CarreraProximaDto {
 
     public CarreraProximaDto(Carrera carrera) {
         this.idCarrera = carrera.getIdCarrera();
-        this.numero = carrera.getIdCarrera();
+        this.numero = carrera.getNumero();
         this.estado = carrera.getEstado().getNombre();
         this.cantidadCaballos = carrera.cantidadCaballosParticipantes();
         this.totalApostado = carrera.calcularTotalApostado();

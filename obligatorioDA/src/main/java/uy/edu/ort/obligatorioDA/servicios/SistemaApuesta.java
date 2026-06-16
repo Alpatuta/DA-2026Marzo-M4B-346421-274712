@@ -5,7 +5,6 @@ import java.util.List;
 
 import uy.edu.ort.obligatorioDA.Observer.Observable;
 import uy.edu.ort.obligatorioDA.dominio.Apuesta;
-import uy.edu.ort.obligatorioDA.dominio.Carrera;
 import uy.edu.ort.obligatorioDA.dominio.Jugador;
 import uy.edu.ort.obligatorioDA.dominio.ModalidadApuesta;
 import uy.edu.ort.obligatorioDA.dominio.Participacion;
@@ -61,7 +60,7 @@ public class SistemaApuesta extends Observable {
     }
 
     private void registrarApuesta(Jugador jugador, Participacion participacion,
-            ModalidadApuesta modalidad, double monto) {
+            ModalidadApuesta modalidad, double monto) throws ObligatorioException {
         Apuesta apuesta = new Apuesta(monto, jugador, modalidad);
         participacion.agregarApuesta(apuesta);
         jugador.agregarApuesta(apuesta);

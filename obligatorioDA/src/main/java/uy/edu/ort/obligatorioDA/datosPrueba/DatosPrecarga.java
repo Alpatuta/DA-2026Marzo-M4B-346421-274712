@@ -41,10 +41,18 @@ public class DatosPrecarga {
             crearJugador(f, "j5", "Marta Díaz", "j5", 18000.0);
             crearJugador(f, "j6", "Jorge Ruiz", "j6", 7000.0);
 
-            // Modalidades de apuesta (letra pág. 4)
-            modalidades.add(new ModalidadSimple());
-            modalidades.add(new ModalidadTriple());
-            modalidades.add(new ModalidadSuper());
+         // Modalidades — una sola vez, antes de crear las carreras
+            ModalidadApuesta simple = new ModalidadSimple();
+            ModalidadApuesta triple = new ModalidadTriple();
+            ModalidadApuesta sup    = new ModalidadSuper();
+
+            f.agregarModalidad(simple);   // para el tablero (SistemaApuesta)
+            f.agregarModalidad(triple);
+            f.agregarModalidad(sup);
+
+            modalidades.add(simple);      // para las apuestas de precarga
+            modalidades.add(triple);
+            modalidades.add(sup);
 
             float comision = f.getComisionHipodromo();
 
@@ -65,22 +73,6 @@ public class DatosPrecarga {
             Jornada posterior = new Jornada(diasDesdeHoy(7));
             posterior.agregarCarrera(crearCarreraDefinida("Gran Final", 10));
             f.agregarJornada(posterior);
-
-            // 1) Registrar las modalidades en SistemaApuesta (no solo en la lista local)
-            ModalidadApuesta simple = new ModalidadSimple();
-            ModalidadApuesta triple = new ModalidadTriple();
-            ModalidadApuesta sup    = new ModalidadSuper();
-            f.agregarModalidad(simple);
-            f.agregarModalidad(triple);
-            f.agregarModalidad(sup);
-            modalidades.add(simple);
-            modalidades.add(triple);
-            modalidades.add(sup);
-
-
-
-
-
 
             System.out.println("Datos de precarga cargados correctamente.");
         } catch (Exception e) {

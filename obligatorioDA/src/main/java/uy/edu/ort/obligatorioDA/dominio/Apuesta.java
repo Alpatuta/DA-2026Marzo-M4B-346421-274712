@@ -1,5 +1,7 @@
 package uy.edu.ort.obligatorioDA.dominio;
 
+import uy.edu.ort.obligatorioDA.excepciones.ObligatorioException;
+
 public class Apuesta {
 
 	private Double montoApostado;
@@ -18,7 +20,7 @@ public class Apuesta {
 
 	private ModalidadApuesta modalidadApuesta;
 
-	public Apuesta(Double monto, Jugador jugador, ModalidadApuesta modalidad) {
+	public Apuesta(Double monto, Jugador jugador, ModalidadApuesta modalidad) throws ObligatorioException {
 		validarMonto(monto);
 		this.montoApostado = monto;
 		this.modalidadApuesta = modalidad;
@@ -27,9 +29,9 @@ public class Apuesta {
 		this.costoDescontar = modalidad.calcularMontoApostado(monto);
 	}
 
-	public void validarMonto(Double monto) {
-		if (monto <= 0) {
-			throw new IllegalArgumentException("El monto apostado debe ser mayor a cero.");
+	public void validarMonto(Double monto) throws ObligatorioException {
+		if (monto < 1) {
+			throw new ObligatorioException("Monto inválido");
 		}
 
 	}

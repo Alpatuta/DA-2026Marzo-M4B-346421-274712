@@ -23,7 +23,7 @@ public class ApuestaDto {
         Carrera c = p.getCarrera();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         this.fecha = c.getFecha() != null ? sdf.format(c.getFecha()) : "";
-        this.nroCarrera = c.getIdCarrera();
+        this.nroCarrera = c.getNumero();
         this.nombreCarrera = c.getNombreCarrera();
         this.nroCaballo = p.getNroParticipacion();
         this.nombreCaballo = p.getCaballo().getNombre();
