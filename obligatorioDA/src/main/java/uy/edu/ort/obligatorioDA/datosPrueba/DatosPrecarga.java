@@ -41,16 +41,16 @@ public class DatosPrecarga {
             crearJugador(f, "j5", "Marta Díaz", "j5", 18000.0);
             crearJugador(f, "j6", "Jorge Ruiz", "j6", 7000.0);
 
-         // Modalidades — una sola vez, antes de crear las carreras
+            // Modalidades — una sola vez, antes de crear las carreras
             ModalidadApuesta simple = new ModalidadSimple();
             ModalidadApuesta triple = new ModalidadTriple();
-            ModalidadApuesta sup    = new ModalidadSuper();
+            ModalidadApuesta sup = new ModalidadSuper();
 
-            f.agregarModalidad(simple);   // para el tablero (SistemaApuesta)
+            f.agregarModalidad(simple); // para el tablero (SistemaApuesta)
             f.agregarModalidad(triple);
             f.agregarModalidad(sup);
 
-            modalidades.add(simple);      // para las apuestas de precarga
+            modalidades.add(simple); // para las apuestas de precarga
             modalidades.add(triple);
             modalidades.add(sup);
 
@@ -61,7 +61,9 @@ public class DatosPrecarga {
             hoy.agregarCarrera(crearCarreraDefinida("Gran Premio del Litoral", 8));
             hoy.agregarCarrera(crearCarreraDefinida("Clásico Río de la Plata", 9));
             hoy.agregarCarrera(crearCarreraDefinida("Copa San Martín", 7));
+            hoy.agregarCarrera(crearCarreraConApuestasValidas(comision));
             f.agregarJornada(hoy);
+            
 
             // === Jornada SEMANA ANTERIOR: 2 carreras Cerradas con apuestas ===
             Jornada anterior = new Jornada(diasDesdeHoy(-7));
@@ -112,14 +114,46 @@ public class DatosPrecarga {
                 ModalidadApuesta m = modalidades.get(idx % modalidades.size());
                 double monto = 500 + (k * 100);
                 Apuesta apuesta = new Apuesta(monto, j, m);
-                p.agregarApuesta(apuesta);   // a la participación (setea la referencia inversa)
-                j.agregarApuesta(apuesta);   // al jugador (para totalApostado/totalGanado/apuestas)
+                p.agregarApuesta(apuesta); // a la participación (setea la referencia inversa)
+                j.agregarApuesta(apuesta); // al jugador (para totalApostado/totalGanado/apuestas)
                 idx++;
             }
         }
 
         c.recalcularDividendos(comision); // recalcula y, si todos válidos, Abierta → Estable
         c.getEstado().cerrar(c); // Estable → Cerrada
+        return c;
+    }
+
+    private static void apostar(Carrera c, int nroParticipacion, Jugador j, ModalidadApuesta m, double monto)
+            throws Exception {
+        Participacion p = c.obtenerParticipacionPorNro(nroParticipacion);
+        Apuesta apuesta = new Apuesta(monto, j, m);
+        p.agregarApuesta(apuesta); // a la participación (setea la referencia inversa)
+        j.agregarApuesta(apuesta); // al jugador
+    }
+
+    private static Carrera crearCarreraConApuestasValidas(float comision) throws Exception {
+        Carrera c = new Carrera("Premio Relámpago");
+        for (int i = 1; i <= 5; i++) {
+            Participacion p = new Participacion(i, c, new Caballo("Caballo " + i + " - Premio Relámpago"));
+            c.agregarParticipante(p);
+        }
+
+        c.getEstado().abrir(c); // Definida → Abierta
+
+        ModalidadApuesta simple = modalidades.get(0); // Simple (se agregó primero)
+
+        // Caballo 1: dos jugadores → es el que vamos a hacer ganar
+        apostar(c, 1, jugadores.get(0), simple, 1000); // j1
+        apostar(c, 1, jugadores.get(1), simple, 1000); // j2
+        // Caballos 2 a 5: un jugador cada uno
+        apostar(c, 2, jugadores.get(2), simple, 1000); // j3
+        apostar(c, 3, jugadores.get(3), simple, 1000); // j4
+        apostar(c, 4, jugadores.get(4), simple, 1000); // j5
+        apostar(c, 5, jugadores.get(5), simple, 1000); // j6
+
+        c.recalcularDividendos(comision); // todos los dividendos quedan > 1 → pasa a Estable
         return c;
     }
 
