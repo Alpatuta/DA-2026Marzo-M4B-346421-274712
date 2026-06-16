@@ -1,18 +1,16 @@
 package uy.edu.ort.obligatorioDA.presentadores;
 
-import uy.edu.ort.obligatorioDA.servicios.Fachada.Fachada;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import jakarta.servlet.http.HttpSession;
 import uy.edu.ort.obligatorioDA.dominio.Jugador;
 import uy.edu.ort.obligatorioDA.dominio.Usuario;
 import uy.edu.ort.obligatorioDA.dtos.JugadorDto;
 import uy.edu.ort.obligatorioDA.excepciones.ObligatorioException;
-
-import jakarta.servlet.http.HttpSession;
-import uy.edu.ort.obligatorioDA.dominio.Usuario;
+import uy.edu.ort.obligatorioDA.servicios.Fachada.Fachada;
 
 @RestController
 @RequestMapping("/loginJugador")
