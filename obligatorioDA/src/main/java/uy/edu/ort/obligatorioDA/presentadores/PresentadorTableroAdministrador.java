@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import jakarta.annotation.PreDestroy;
 import jakarta.servlet.http.HttpSession;
 import uy.edu.ort.obligatorioDA.Observer.ConexionNavegador;
 import uy.edu.ort.obligatorioDA.Observer.IObservador;
@@ -30,6 +31,7 @@ public class PresentadorTableroAdministrador implements IObservador {
 	private final Fachada fachada;
 	private ConexionNavegador conexionNavegador;
 	private Jornada jornadaActual;
+	private String nombreAdmin;
 
 	public PresentadorTableroAdministrador(Fachada fachada, ConexionNavegador conexionNavegador) {
 		this.fachada = fachada;
@@ -47,6 +49,7 @@ public class PresentadorTableroAdministrador implements IObservador {
 		if (adminDto == null) {
 			return Commands.create(new Command("accesoNoPermitido", "loginAdmin.html"));
 		}
+		nombreAdmin = adminDto.getNombreCompleto();
 
 		jornadaActual = fachada.obtenerJornadaActual(new Date());
 		if (jornadaActual == null) {
@@ -97,6 +100,15 @@ public class PresentadorTableroAdministrador implements IObservador {
 	public void actualizar(Observable origen, Object evento) {
 		conexionNavegador.enviarJSON(
 				Commands.create(comandoJornada()));
+	}
+
+	@PreDestroy
+	public void limpiar() {
+		fachada.removerObserver(this);
+		if(nombreAdmin != null) {
+			fachada.desconectarAdmin(nombreAdmin);
+		}
+		conexionNavegador.cerrarConexion();
 	}
 
 	// Metodos privados para SRP

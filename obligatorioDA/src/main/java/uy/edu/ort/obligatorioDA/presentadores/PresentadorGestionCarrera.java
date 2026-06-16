@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import jakarta.annotation.PreDestroy;
 import jakarta.servlet.http.HttpSession;
 import uy.edu.ort.obligatorioDA.Observer.ConexionNavegador;
 import uy.edu.ort.obligatorioDA.Observer.IObservador;
@@ -19,6 +20,7 @@ import uy.edu.ort.obligatorioDA.dtos.AdminDto;
 import uy.edu.ort.obligatorioDA.dtos.CarreraDetalleDto;
 import uy.edu.ort.obligatorioDA.excepciones.ObligatorioException;
 import uy.edu.ort.obligatorioDA.servicios.Fachada.Fachada;
+
 
 @RestController
 @RequestMapping("/gestionCarrera")
@@ -101,4 +103,14 @@ public class PresentadorGestionCarrera implements IObservador {
     private Commands comandoCarrera() {
         return Commands.create(new Command("carrera", new CarreraDetalleDto(carreraActual)));
     }
+
+    @PreDestroy 
+    public void limpiar() {
+
+        fachada.removerObserver(this);
+        conexionNavegador.cerrarConexion();
+
+    }
 }
+
+    

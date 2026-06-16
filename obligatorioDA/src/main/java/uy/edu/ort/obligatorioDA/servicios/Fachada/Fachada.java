@@ -3,6 +3,7 @@ package uy.edu.ort.obligatorioDA.servicios.Fachada;
 import java.util.Date;
 import java.util.List;
 
+import jakarta.annotation.PreDestroy;
 import uy.edu.ort.obligatorioDA.Observer.IObservador;
 import uy.edu.ort.obligatorioDA.Observer.Observable;
 import uy.edu.ort.obligatorioDA.dominio.Administrador;
@@ -128,6 +129,13 @@ public class Fachada extends Observable implements IObservador {
 	@Override
 	public void actualizar(Observable origen, Object evento) {
 		notificarObservadores(evento);
+	}
+
+	@PreDestroy
+	protected void cleanUp (){
+		sa.removerObserver(this);
+		sc.removerObserver(this);
+
 	}
 
 }

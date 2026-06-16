@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import jakarta.annotation.PreDestroy;
 import jakarta.servlet.http.HttpSession;
 import uy.edu.ort.obligatorioDA.Observer.ConexionNavegador;
 import uy.edu.ort.obligatorioDA.Observer.IObservador;
@@ -115,5 +116,13 @@ public class PresentadorTableroJugador implements IObservador {
             dtos.add(new ApuestaDto(a));
         }
         return dtos;
+    }
+
+      @PreDestroy 
+         public void limpiar() {
+
+        fachada.removerObserver(this);
+        conexionNavegador.cerrarConexion();
+
     }
 }
