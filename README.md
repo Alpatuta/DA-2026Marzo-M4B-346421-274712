@@ -98,4 +98,4 @@ obligatorioDA/src/main/
 
 ## Equipo
 
-Grupo M4B — estudiantes 346421 y 274712.
+Grupo M4B — Federico Oteiza y Rodrigo Pintos.
